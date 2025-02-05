@@ -1,96 +1,137 @@
-'use client';
+"use client"; // This is required because we are using useState (a client component)
 
-import { useState } from 'react';
+import { useState } from "react";
+import Image from "next/image";
 
 export default function Profile() {
-  const [user, setUser] = useState({
-    name: 'John Doe',
-    password: '********',
-    profilePic: 'https://via.placeholder.com/150'
+  const gender = "male"; // Change to "female" for testing
+
+  // State for edit mode
+  const [isEditing, setIsEditing] = useState(false);
+
+  // User profile state
+  const [profile, setProfile] = useState({
+    fullName: "John Doe",
+    email: "johndoe@example.com",
+    phone: "+123 456 7890",
+    address: "New York, USA",
   });
-  const [showPassword, setShowPassword] = useState(false);
 
+  // Handle input change
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser((prev) => ({ ...prev, [name]: value }));
+    setProfile({ ...profile, [e.target.name]: e.target.value });
   };
 
-  const handleSave = () => {
-    alert('Profile Saved Successfully!');
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleProfilePicChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setUser((prev) => ({ ...prev, profilePic: reader.result }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // Toggle edit mode
+  const toggleEdit = () => setIsEditing(!isEditing);
 
   return (
-    <div className="max-w-md mx-auto p-4 shadow-lg rounded-xl bg-white mt-10">
-      <h1 className="text-2xl font-bold text-center mb-4 text-black">User Profile</h1>
-      <div className="flex justify-center mb-4">
-        <div className="w-24 h-24 bg-gray-200 border border-gray-300 rounded-md">
-          <img
-            src={user.profilePic}
-            alt="Profile Picture"
-            className="w-full h-full object-cover rounded-md"
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-xl bg-white p-6 rounded-lg shadow-md">
+        {/* Profile Picture */}
+        <div className="flex flex-col items-center">
+          <Image
+            src={gender === "male" ? "/boy_profile.jpeg" : "/girl_profile.jpeg"}
+            alt="Profile"
+            width={100}
+            height={100}
+            className="w-24 h-24 rounded-full border-4 border-blue-500"
           />
+          <h2 className="text-2xl font-semibold mt-3">{profile.fullName}</h2>
+          <p className="text-gray-600">{profile.email}</p>
         </div>
-      </div>
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-black">Name</label>
-        <input
-          type="text"
-          name="name"
-          value={user.name}
-          onChange={handleChange}
-          className="w-full mt-1 p-2 border rounded-md"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-black">Password</label>
-        <div className="flex items-center">
-          <input
-            type={showPassword ? 'text' : 'password'}
-            name="password"
-            value={user.password}
-            onChange={handleChange}
-            className="w-full mt-1 p-2 border rounded-md"
-          />
-          <button
-            type="button"
-            onClick={togglePasswordVisibility}
-            className="ml-2 text-blue-500"
-          >
-            {showPassword ? 'Hide' : 'Show'}
+
+        {/* Profile Details (Two-Column Layout) */}
+        <div className="mt-6 grid grid-cols-2 gap-4">
+          {isEditing ? (
+            // Editable Fields
+            <>
+              <div className="flex flex-col">
+                <label className="font-medium text-gray-700">Full Name:</label>
+                <input
+                  type="text"
+                  name="fullName"
+                  value={profile.fullName}
+                  onChange={handleChange}
+                  className="border rounded-md p-2"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label className="font-medium text-gray-700">Email:</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={profile.email}
+                  onChange={handleChange}
+                  className="border rounded-md p-2"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label className="font-medium text-gray-700">Phone:</label>
+                <input
+                  type="text"
+                  name="phone"
+                  value={profile.phone}
+                  onChange={handleChange}
+                  className="border rounded-md p-2"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label className="font-medium text-gray-700">Address:</label>
+                <input
+                  type="text"
+                  name="address"
+                  value={profile.address}
+                  onChange={handleChange}
+                  className="border rounded-md p-2"
+                />
+              </div>
+            </>
+          ) : (
+            // Display Mode
+            <>
+              <div className="flex flex-col">
+                <span className="font-medium text-gray-700">Full Name:</span>
+                <span className="text-gray-600">{profile.fullName}</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="font-medium text-gray-700">Email:</span>
+                <span className="text-gray-600">{profile.email}</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="font-medium text-gray-700">Phone:</span>
+                <span className="text-gray-600">{profile.phone}</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="font-medium text-gray-700">Address:</span>
+                <span className="text-gray-600">{profile.address}</span>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Buttons */}
+        <div className="mt-6 flex justify-between">
+          {isEditing ? (
+            <button
+              onClick={toggleEdit}
+              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+            >
+              Update
+            </button>
+          ) : (
+            <button
+              onClick={toggleEdit}
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            >
+              Edit Profile
+            </button>
+          )}
+          <button className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+            Logout
           </button>
         </div>
       </div>
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-black">Upload New Profile Picture</label>
-        <input
-          type="file"
-          onChange={handleProfilePicChange}
-          className="mt-1 p-2 border rounded-md"
-        />
-      </div>
-      <button
-        onClick={handleSave}
-        className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
-      >
-        Save Changes
-      </button>
     </div>
   );
 }
-
-
