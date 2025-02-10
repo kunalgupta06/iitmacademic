@@ -1,31 +1,20 @@
-"use client";
-
 import Link from "next/link";
 
 export default function Dashboard() {
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100">
-      <h2 className="text-4xl font-bold text-center text-blue-600 mb-6 ">
-        Hey! Your academic companion is here!
-      </h2>
+    <div className="flex flex-col h-screen items-center justify-center bg-gray-100">
+      <h1 className="text-3xl font-bold mb-6">Hey! Your academic companion is here!</h1>
 
-      <p className="text-lg text-gray-700 text-center mb-8">
-        Choose an option to proceed:
-      </p>
-
-      <div className="flex flex-col items-center space-y-4">
-        <Link
-          href="/programme-guideline"
-          className="w-64 bg-blue-600 text-white py-3 rounded-lg text-center hover:bg-blue-700 transition"
-        >
-          Programme Guideline
+      <div className="flex space-x-4">
+        <Link href="/programme-guideline">
+          <button className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700">
+            Programme Guideline
+          </button>
         </Link>
-
-        <Link
-          href="/subject-queries"
-          className="w-64 bg-green-600 text-white py-3 rounded-lg text-center hover:bg-green-700 transition"
-        >
-          Subject Queries
+        <Link href="/subject-queries">
+          <button className="px-6 py-3 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700">
+            Subject Queries
+          </button>
         </Link>
       </div>
     </div>
