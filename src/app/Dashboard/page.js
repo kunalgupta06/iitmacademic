@@ -9,7 +9,7 @@ export default function Dashboard() {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl">
-        <Link href="/programme-guidelines" className="p-6 bg-white shadow-md rounded-xl cursor-pointer hover:shadow-lg text-center transform transition-transform duration-300 hover:scale-105">
+        <Link href="/programme-guideline" className="p-6 bg-white shadow-md rounded-xl cursor-pointer hover:shadow-lg text-center transform transition-transform duration-300 hover:scale-105">
           <div className="h-8 w-8 mb-2 mx-auto text-maroon-600">📜</div>
           <h2 className="text-xl font-semibold text-blue-600">Programme Guidelines</h2>
           <p className="text-gray-500">Get answers related to programme rules, courses, and policies.</p>

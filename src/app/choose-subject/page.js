@@ -10,7 +10,7 @@ export default function ChooseSubject() {
       </p>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-md">
-        <Link href="subject-queries" className="p-6 bg-white shadow-lg rounded-xl cursor-pointer hover:shadow-2xl transform transition-transform duration-300 hover:scale-105 text-center">
+        <Link href="/subject-queries" className="p-6 bg-white shadow-lg rounded-xl cursor-pointer hover:shadow-2xl transform transition-transform duration-300 hover:scale-105 text-center">
           <h2 className="text-xl font-semibold text-blue-600">Subject A</h2>
           <p className="text-gray-500">Ask queries related to Subject A.</p>
         </Link>
