@@ -1,12 +1,26 @@
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-// import bgImage from "/dashboard_img.png"; // Ensure the image is placed in the public folder
 
 export default function Dashboard() {
   return (
     <div className="relative w-full h-screen flex items-center justify-center">
       {/* Background Image */}
       <Image src={"/dashboard_img.png"} alt="Books Background" layout="fill" objectFit="cover" quality={100} />
+
+      {/* Top-right buttons */}
+      <div className="absolute top-5 right-5 flex space-x-4">
+        <Link href="/profile">
+          <button className="bg-gray-800 text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-700 transition">
+            Your Profile
+          </button>
+        </Link>
+        <Link href="/login">
+          <button className="bg-red-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-500 transition">
+            Logout
+          </button>
+        </Link>
+      </div>
       
       {/* Overlaying Content */}
       <div className="absolute top-10 w-full text-center">
@@ -15,7 +29,7 @@ export default function Dashboard() {
         Click on the book titles below— 
         <strong>FAQs</strong> for answers to frequently asked questions about the programme, 
         <strong> Subject-Specific Queries</strong> to get help with subject-related doubts and explanations, 
-        and <strong>Programme Guidelines</strong> to understand rules, courses, and policies of the programme.
+        and <strong>Programme Guidelines</strong> for doubts related to rules, courses, and policies of the programme.
         </p>
       </div>
 
