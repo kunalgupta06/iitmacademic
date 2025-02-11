@@ -1,27 +1,50 @@
+import Image from "next/image";
 import Link from "next/link";
+// import bgImage from "/dashboard_img.png"; // Ensure the image is placed in the public folder
 
 export default function Dashboard() {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-6">
-      <h1 className="text-4xl font-bold text-gray-800 mb-4">Hey! Your academic companion is here!</h1>
-      <p className="text-gray-500 text-center max-w-md mb-8">
-        Your academic companion for IIT Madras Degree in Data Science—ask questions, find resources, and boost your learning!
-      </p>
+    <div className="relative w-full h-screen flex items-center justify-center">
+      {/* Background Image */}
+      <Image src={"/dashboard_img.png"} alt="Books Background" layout="fill" objectFit="cover" quality={100} />
+      
+      {/* Overlaying Content */}
+      <div className="absolute top-10 w-full text-center">
+        <h1 className="text-4xl font-bold text-gray-800 drop-shadow-lg">Hey! Your academic companion is here!</h1>
+        <p className="text-gray-600 text-lg mt-2 drop-shadow-lg">
+        Click on the book titles below— 
+        <strong>FAQs</strong> for answers to frequently asked questions about the programme, 
+        <strong> Subject-Specific Queries</strong> to get help with subject-related doubts and explanations, 
+        and <strong>Programme Guidelines</strong> to understand rules, courses, and policies of the programme.
+        </p>
+      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl">
-        <Link href="/programme-guideline" className="p-6 bg-white shadow-md rounded-xl cursor-pointer hover:shadow-lg text-center transform transition-transform duration-300 hover:scale-105">
-          <div className="h-8 w-8 mb-2 mx-auto text-maroon-600">📜</div>
-          <h2 className="text-xl font-semibold text-blue-600">Programme Guidelines</h2>
-          <p className="text-gray-500">Get answers related to programme rules, courses, and policies.</p>
+      {/* Clickable Book Titles */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <Link
+          href="/faq"
+          className="absolute text-white text-lg font-bold drop-shadow-md transition-transform transform hover:scale-110 hover:text-yellow-300"
+          style={{ top: "57%", left: "40%" }}
+        >
+         FAQs
+        </Link>
+        
+        <Link 
+          href="/choose-subject" 
+          className="absolute text-white text-lg font-bold drop-shadow-md transition-transform transform hover:scale-110 hover:text-blue-400" 
+          style={{ top: "66%", left: "35%" }}>
+          Subject-Specific Queries
         </Link>
 
-        <Link href="/choose-subject" className="p-6 bg-white shadow-md rounded-xl cursor-pointer hover:shadow-lg text-center transform transition-transform duration-300 hover:scale-105">
-          <div className="h-8 w-8 mb-2 mx-auto text-mustard-500">📚</div>
-          <h2 className="text-xl font-semibold text-green-600">Subject-Specific Queries</h2>
-          <p className="text-gray-500">Find explanations, notes, and subject-related information.</p>
+        <Link 
+          href="/programme-guideline" 
+          className="absolute text-white text-lg font-bold drop-shadow-md text-center transition-transform transform hover:scale-110 hover:text-purple-400" 
+          style={{ top: "77%", left: "33%" }}>
+          Programme <br /> Guidelines
         </Link>
       </div>
     </div>
   );
 }
+
 
