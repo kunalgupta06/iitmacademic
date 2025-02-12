@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Navbar from "@/components/Navbar/page"; // Import Navbar
 
 const subjects = [
   { name: "Mathematics", color: "text-blue-600" },
@@ -23,17 +24,23 @@ export default function ChooseSubject() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 flex flex-col items-center p-6">
-      <h1 className="text-4xl font-bold text-gray-800 mb-6">Choose a Subject</h1>
-      <p className="text-gray-600 max-w-lg mb-4 text-center">
-        Select a subject to access the chatbot for subject-specific queries.
-      </p>
+      {/* Navbar with "Go Back" link set to Dashboard */}
+      <Navbar backLink="/Dashboard" />
 
-      {/* Search Bar */}
+      {/* Reduced margin-top to bring the heading closer */}
+      <div className="mt-12 text-center">
+        <h1 className="text-4xl font-bold text-gray-800 mb-4">Choose a Subject</h1>
+        <p className="text-gray-600 max-w-lg mb-4">
+          Select a subject to access the chatbot for subject-specific queries.
+        </p>
+      </div>
+
+      {/* Search Bar with Black Input Text */}
       <div className="w-full max-w-md">
         <input
           type="text"
           placeholder="Search for a subject..."
-          className="mb-6 p-3 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mb-6 p-3 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-black placeholder-gray-500"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -68,4 +75,6 @@ export default function ChooseSubject() {
     </div>
   );
 }
+
+
 
