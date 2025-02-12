@@ -7,7 +7,7 @@ export default function Navbar({ backLink = "/" }) {
   const pathname = usePathname();
 
   // Hide Navbar on login & signup pages
-  if (pathname === "/login" || pathname === "/signup") {
+  if (pathname === "/login" || pathname === "/signup" || pathname === "/forgot-password") {
     return null;
   }
 
