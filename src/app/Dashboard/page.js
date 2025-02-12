@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,20 +8,24 @@ export default function Dashboard() {
     <div className="relative w-full h-screen flex items-center justify-center">
       {/* Background Image */}
       <Image src={"/dashboard_img.png"} alt="Books Background" layout="fill" objectFit="cover" quality={100} />
-
+      
       {/* Top-right buttons */}
+      
       <div className="absolute top-5 right-5 flex space-x-4">
+      {/* <a href="/login" className="text-blue-600 hover:underline">Login</a> */}
         <Link href="/profile">
           <button className="bg-gray-800 text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-700 transition">
             Your Profile
           </button>
         </Link>
+
         <Link href="/login">
           <button className="bg-red-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-500 transition">
             Logout
           </button>
         </Link>
       </div>
+
       
       {/* Overlaying Content */}
       <div className="absolute top-10 w-full text-center">
