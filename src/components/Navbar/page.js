@@ -18,32 +18,36 @@ export default function Navbar({ backLink = "/" }) {
 
       {/* Navigation Buttons */}
       <div className="space-x-4 flex">
-        {/* Hide "Go Back" & "Profile" on Profile Page */}
+        {/* Hide "Go Back" on Profile Page */}
         {pathname !== "/profile" && (
-          <>
-            <Link href={backLink}>
-              <button className="px-4 py-2 border-2 border-black text-black font-semibold rounded-lg transition-colors hover:bg-black hover:text-white">
-                Go Back
-              </button>
-            </Link>
-
-            <Link href="/profile">
-              <button className="px-4 py-2 border-2 border-black text-black font-semibold rounded-lg transition-colors hover:bg-black hover:text-white">
-                Profile
-              </button>
-            </Link>
-          </>
+          <Link href={backLink}>
+            <button className="px-4 py-2 border-2 border-black text-black font-semibold rounded-lg transition-colors hover:bg-black hover:text-white">
+              Go Back
+            </button>
+          </Link>
         )}
 
-        <Link href="/login">
-          <button className="px-4 py-2 border-2 border-black text-black font-semibold rounded-lg transition-colors hover:bg-black hover:text-white">
-            Logout
-          </button>
-        </Link>
+        {/* Hide "Profile" and "Logout" on Forgot Password & Signup pages */}
+        {pathname !== "/forgot-password" && pathname !== "/signup" && pathname !== "/profile" && (
+          <Link href="/profile">
+            <button className="px-4 py-2 border-2 border-black text-black font-semibold rounded-lg transition-colors hover:bg-black hover:text-white">
+              Profile
+            </button>
+          </Link>
+        )}
+
+        {pathname !== "/forgot-password" && pathname !== "/signup" && (
+          <Link href="/login">
+            <button className="px-4 py-2 border-2 border-black text-black font-semibold rounded-lg transition-colors hover:bg-black hover:text-white">
+              Logout
+            </button>
+          </Link>
+        )}
       </div>
     </nav>
   );
 }
+
 
 
 
