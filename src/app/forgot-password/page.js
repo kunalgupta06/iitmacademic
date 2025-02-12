@@ -2,7 +2,7 @@
 
 export default function ForgotPassword() {
   return (
-    <div className="relative w-full min-h-screen bg-white flex justify-center items-center">
+    <div className="relative w-full h-screen bg-white flex justify-center items-center overflow-hidden">
       
       {/* Background Image Positioned Using Percentages */}
       <div 
@@ -18,11 +18,11 @@ export default function ForgotPassword() {
 
       {/* Forgot Password Container Positioned Using Percentages */}
       <div 
-        className="bg-white/90 p-8 rounded-lg shadow-lg border-2 border-black relative"
+        className="bg-white/90 p-8 rounded-lg shadow-lg border-2 border-gray relative"
         style={{ 
           width: "35%",  // Adjust container width
           height: "auto", // Keeps height flexible
-          top: "-10%", // Adjust vertical position
+          top: "", // Adjust vertical position
           left: "20%", // Adjust horizontal position
         }}
       >
