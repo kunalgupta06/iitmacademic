@@ -58,14 +58,22 @@ export default function ChooseSubject() {
       <Navbar backLink="/Dashboard" />
 
       {/* Fixed Container to Prevent Shifting */}
-      <div className="flex flex-col items-center w-full max-w-6xl mt-24">
-        {/* Subtitle (Larger Text, Now White) */}
-        <p className="text-3xl font-semibold drop-shadow-lg mb-8 text-center whitespace-nowrap text-white">
-          Select a subject to access the chatbot for subject-specific queries.
-        </p>
+      <div className="flex flex-col items-center w-full max-w-6xl mt-14">
+        
+        {/* Subtitle with Image beside it */}
+        <div className="flex items-center justify-center space-x-2 mb-0">
+          <img 
+            src="/choose_subject.png" 
+            alt="Choose Subject"
+            className="w-[20%] h-auto" // 12% width, auto height
+          />
+          <p className="text-2xl font-semibold drop-shadow-lg text-center whitespace-nowrap text-blue-600">
+            Select a subject to access the chatbot for subject-specific queries.
+          </p>
+        </div>
 
         {/* Search Bar */}
-        <div className="w-full max-w-md mb-6">
+        <div className="w-full max-w-md mb-5">
           <input
             type="text"
             placeholder="Search for a subject..."
@@ -76,7 +84,7 @@ export default function ChooseSubject() {
         </div>
 
         {/* Subject Grid with Fixed Height to Prevent Shifting */}
-        <div className="grid grid-cols-4 gap-6 w-full max-w-5xl min-h-[350px]">
+        <div className="grid grid-cols-4 gap-6 w-full max-w-5xl min-h-[340px]">
           {displayedSubjects.length > 0 ? (
             displayedSubjects.map((subject, index) => (
               <Link
@@ -100,7 +108,7 @@ export default function ChooseSubject() {
         {filteredSubjects.length > subjectsPerPage && (
           <button
             onClick={showNextSubjects}
-            className="text-lg font-semibold text-white mt-6 hover:underline transition"
+            className="text-lg font-semibold text-blue-700 mt-3 hover:underline transition"
           >
             More Subjects →
           </button>
@@ -109,6 +117,7 @@ export default function ChooseSubject() {
     </div>
   );
 }
+
 
 
 
