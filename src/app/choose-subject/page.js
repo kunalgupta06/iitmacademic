@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Navbar from "@/components/Navbar/page"; // Assuming your Navbar component is imported
 
 const subjects = [
   { name: "Mathematics", color: "text-blue-600" },
@@ -21,58 +22,97 @@ const subjects = [
   { name: "Philosophy", color: "text-yellow-700" }
 ];
 
-
 export default function ChooseSubject() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [startIndex, setStartIndex] = useState(0);
+  const subjectsPerPage = 8;
 
+  // Filter subjects based on search term
   const filteredSubjects = subjects.filter((subject) =>
     subject.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Get the current slice of subjects to display
+  const displayedSubjects = filteredSubjects.slice(startIndex, startIndex + subjectsPerPage);
+
+  // Function to show the next set of subjects
+  const showNextSubjects = () => {
+    if (startIndex + subjectsPerPage < filteredSubjects.length) {
+      setStartIndex(startIndex + subjectsPerPage);
+    } else {
+      setStartIndex(0); // Restart from the beginning if at the end
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 flex flex-col items-center p-6">
-      <h1 className="text-4xl font-bold text-gray-800 mb-6">Choose a Subject</h1>
-      <p className="text-gray-600 max-w-md mb-4 text-center">
-        Select a subject to access the chatbot for subject-specific queries.
-      </p>
+    <div
+      className="min-h-screen flex flex-col items-center relative text-white"
+      style={{ 
+        backgroundImage: "url('/choose_subject.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center 30%", // Adjusted upwards
+        backgroundRepeat: "no-repeat"
+      }}
+    >
+      {/* Navbar with Go Back to Dashboard */}
+      <Navbar backLink="/Dashboard" />
 
-      {/* Search Bar */}
-      <div className="w-full max-w-md">
-        <input
-          type="text"
-          placeholder="Search for a subject..."
-          className="mb-6 p-3 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
+      {/* Fixed Container to Prevent Shifting */}
+      <div className="flex flex-col items-center w-full max-w-6xl mt-24">
+        {/* Subtitle (Larger Text, Now White) */}
+        <p className="text-3xl font-semibold drop-shadow-lg mb-8 text-center whitespace-nowrap text-white">
+          Select a subject to access the chatbot for subject-specific queries.
+        </p>
 
-      {/* Fixed Size Subject Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-3 w-full max-w-5xl min-h-[400px]">
-        {filteredSubjects.length > 0 ? (
-          filteredSubjects.map((subject, index) => (
-            <Link
-              key={index}
-              href="/subject-queries"
-              className="p-6 bg-white shadow-lg rounded-xl cursor-pointer hover:shadow-2xl transform transition-transform duration-300 hover:scale-105 text-center"
-              style={{ height: "150px", display: "flex", flexDirection: "column", justifyContent: "center" }}
-            >
-              <h2 className={`text-xl font-semibold ${subject.color}`}>
-                {subject.name}
-              </h2>
-              <p className="text-gray-500">Ask queries related to {subject.name}.</p>
-            </Link>
-          ))
-        ) : (
-          <p className="text-gray-500 col-span-4 text-center">No subjects found.</p>
+        {/* Search Bar */}
+        <div className="w-full max-w-md mb-6">
+          <input
+            type="text"
+            placeholder="Search for a subject..."
+            className="p-3 w-full border border-gray-300 rounded-lg shadow-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
+        {/* Subject Grid with Fixed Height to Prevent Shifting */}
+        <div className="grid grid-cols-4 gap-6 w-full max-w-5xl min-h-[350px]">
+          {displayedSubjects.length > 0 ? (
+            displayedSubjects.map((subject, index) => (
+              <Link
+                key={index}
+                href="/subject-queries"
+                className="p-6 bg-white/90 text-black shadow-lg rounded-xl cursor-pointer hover:shadow-2xl transform transition-transform duration-300 hover:scale-105 text-center"
+                style={{ height: "150px", display: "flex", flexDirection: "column", justifyContent: "center" }}
+              >
+                <h2 className={`text-xl font-semibold ${subject.color}`}>
+                  {subject.name}
+                </h2>
+                <p className="text-gray-600">Ask queries related to {subject.name}.</p>
+              </Link>
+            ))
+          ) : (
+            <p className="text-gray-500 col-span-4 text-center">No subjects found.</p>
+          )}
+        </div>
+
+        {/* Show More Subjects Button Below the Cards */}
+        {filteredSubjects.length > subjectsPerPage && (
+          <button
+            onClick={showNextSubjects}
+            className="text-lg font-semibold text-white mt-6 hover:underline transition"
+          >
+            More Subjects →
+          </button>
         )}
-
-        {/* Invisible placeholders to maintain row height when filtering */}
-        {filteredSubjects.length < 4 &&
-          Array.from({ length: 4 - filteredSubjects.length }).map((_, index) => (
-            <div key={`placeholder-${index}`} className="h-[150px]"></div>
-          ))}
       </div>
     </div>
   );
 }
+
+
+
+
+
+
+

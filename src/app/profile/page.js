@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -12,9 +12,8 @@ export default function Profile() {
     email: "johndoe@example.com",
     username: "johndoe123",
     password: "********",
-    gender: "male",
-    role: "Student", // Non-editable field
-    profilePic: defaultPic, // Default profile picture
+    role: "Student",
+    profilePic: defaultPic,
   });
 
   const [isEditing, setIsEditing] = useState(false);
@@ -42,17 +41,33 @@ export default function Profile() {
   const toggleEdit = () => setIsEditing(!isEditing);
 
   return (
-    <div 
-      className="min-h-screen bg-cover bg-center" 
-      style={{
-        backgroundImage: `url(${profile.gender === "male" ? "/Profile_male.jpg" : "/Profile_female.jpg"})`
-      }}
-    >
-      {/* Navbar (Ensure it is imported and renders) */}
+    <div className="relative min-h-screen bg-white">
+      {/* Navbar */}
       <Navbar />
 
-      <div className="flex items-center justify-start min-h-screen pl-20">
-        <div className="w-full max-w-xl bg-white bg-opacity-80 p-6 rounded-lg shadow-md">
+      {/* Background Profile Image with Adjustable Percentages */}
+      <div
+        className="absolute"
+        style={{
+          width: "40%", // Change this to adjust image width
+          height: "80%", // Change this to adjust image height
+          top: "10%", // Adjust top position
+          left: "50%", // Adjust left position
+        }}
+      >
+        <Image
+          src="/profile_img.jpg"
+          alt="Profile Background"
+          layout="fill"
+          objectFit="cover"
+          className="opacity-100"
+        />
+      </div>
+
+      {/* Profile Page Layout */}
+      <div className="relative min-h-screen flex items-center px-10">
+        {/* Profile Container */}
+        <div className="w-[45%] max-w-xl bg-white border-4 border-yellow-300 p-6 rounded-lg shadow-md z-10" style={{ marginLeft: "8%" }}>
           {/* Profile Picture */}
           <div className="flex flex-col items-center">
             <Image
@@ -66,21 +81,14 @@ export default function Profile() {
             {/* Upload & Remove Buttons */}
             {isEditing && (
               <div className="mt-3 flex flex-col items-center gap-2">
-                {/* Choose File Button */}
                 <label className="cursor-pointer bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition">
                   Choose File
-                  <input 
-                    type="file" 
-                    accept="image/*" 
-                    className="hidden"
-                    onChange={handleFileUpload} 
-                  />
+                  <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
                 </label>
 
-                {/* Remove Profile Picture Button */}
                 {profile.profilePic !== defaultPic && (
-                  <button 
-                    onClick={handleRemoveProfilePic} 
+                  <button
+                    onClick={handleRemoveProfilePic}
                     className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition"
                   >
                     Remove Profile Picture
@@ -96,7 +104,6 @@ export default function Profile() {
           {/* Profile Details */}
           <div className="mt-6 grid grid-cols-2 gap-4">
             {isEditing ? (
-              // Editable Fields
               <>
                 <div className="flex flex-col">
                   <label className="font-medium text-gray-900">Full Name:</label>
@@ -138,23 +145,8 @@ export default function Profile() {
                     className="border rounded-md p-2 text-gray-900"
                   />
                 </div>
-
-                {/* Gender Dropdown */}
-                <div className="flex flex-col">
-                  <label className="font-medium text-gray-900">Gender:</label>
-                  <select
-                    name="gender"
-                    value={profile.gender}
-                    onChange={handleChange}
-                    className="border rounded-md p-2 bg-white text-gray-900"
-                  >
-                    <option value="male" className="text-gray-900">Male</option>
-                    <option value="female" className="text-gray-900">Female</option>
-                  </select>
-                </div>
               </>
             ) : (
-              // Display Mode
               <>
                 <div className="flex flex-col">
                   <span className="font-medium text-gray-900">Full Name:</span>
@@ -172,10 +164,6 @@ export default function Profile() {
                   <span className="font-medium text-gray-900">Password:</span>
                   <span className="text-gray-700">{profile.password}</span>
                 </div>
-                <div className="flex flex-col">
-                  <span className="font-medium text-gray-900">Gender:</span>
-                  <span className="text-gray-700">{profile.gender === "male" ? "Male" : "Female"}</span>
-                </div>
 
                 {/* Non-editable Role Field */}
                 <div className="flex flex-col">
@@ -189,17 +177,11 @@ export default function Profile() {
           {/* Buttons */}
           <div className="mt-6 flex justify-end">
             {isEditing ? (
-              <button
-                onClick={toggleEdit}
-                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
-              >
+              <button onClick={toggleEdit} className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
                 Update
               </button>
             ) : (
-              <button
-                onClick={toggleEdit}
-                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-              >
+              <button onClick={toggleEdit} className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
                 Edit Profile
               </button>
             )}
@@ -209,6 +191,11 @@ export default function Profile() {
     </div>
   );
 }
+
+
+
+
+
 
 
 

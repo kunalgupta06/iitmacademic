@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Navbar from "@/components/Navbar/page"; // Import Navbar
 
 const faqs = [
   { question: "How do I reset my password?", answer: "Click 'Forgot password?' on the login page." },
@@ -26,52 +27,55 @@ export default function FAQ() {
   );
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Left Side: Scrollable FAQ List (Without Visible Scrollbar) */}
-      <div className="w-2/3 h-full px-10 py-10 flex flex-col">
-        <h1 className="text-4xl font-bold text-gray-800 mb-6">FAQs</h1>
+    <div 
+      className="w-full h-screen flex flex-col items-center justify-start overflow-hidden"
+      style={{ backgroundColor: "#00d0ea" }} 
+    >
+      {/* Navbar with Go Back to Dashboard */}
+      <Navbar backLink="/Dashboard" /> {/* Set Go Back to Dashboard */}
 
+      {/* Centered FAQ Image (Heading) */}
+      <img 
+        src="/faq_img.jpg" 
+        alt="FAQ Heading" 
+        className="w-[20%] mb-2 mt-8" 
+      />
+
+      {/* Transparent FAQ Section */}
+      <div className="w-[55%] p-6 rounded-lg shadow-lg bg-white/10 backdrop-blur-md">
         {/* Search Bar */}
         <input
           type="text"
           placeholder="Search FAQs..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white shadow-md text-gray-900 mb-4"
+          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white text-black shadow-md mb-4"
         />
 
-        {/* Scrollable FAQ List (Without Scrollbar) */}
-        <div
-          className="overflow-y-auto pr-4"
-          style={{ 
-            maxHeight: "calc(100vh - 150px)", 
-            scrollbarWidth: "none", /* Hide scrollbar in Firefox */
-            msOverflowStyle: "none"  /* Hide scrollbar in IE/Edge */
-          }}
-        >
+        {/* FAQ List */}
+        <div className="overflow-y-auto max-h-[60vh]">
           {filteredFAQs.length > 0 ? (
             filteredFAQs.map((faq, index) => (
               <div key={index} className="bg-white shadow-md rounded-lg p-4 mb-4 transition duration-300 hover:shadow-lg">
                 <button
-                  className="flex justify-between items-center w-full text-left text-lg font-medium text-gray-700"
+                  className="flex justify-between items-center w-full text-left text-lg font-medium text-black"
                   onClick={() => toggleFAQ(index)}
                 >
                   {faq.question}
                   <span className="text-blue-600">{openIndex === index ? "−" : "+"}</span>
                 </button>
-                {openIndex === index && <p className="mt-2 text-gray-600">{faq.answer}</p>}
+                {openIndex === index && <p className="mt-2 text-black">{faq.answer}</p>}
               </div>
             ))
           ) : (
-            <p className="text-gray-600">No FAQs match your search.</p>
+            <p className="text-white text-center">No FAQs match your search.</p>
           )}
         </div>
-      </div>
-
-      {/* Right Side: Fixed Image */}
-      <div className="w-1/2 h-full hidden lg:flex justify-center items-center bg-white">
-        <img src="/faq.jpg" alt="FAQs" className="w-[450px] rounded-lg" />
       </div>
     </div>
   );
 }
+
+
+
+

@@ -58,7 +58,7 @@ export default function Login() {
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-white bg-opacity-90 text-gray-900"
             >
               <option value="student">Student</option>
-              <option value="instructor">Instructor</option>
+              <option value="ta">Teaching Assistant (TA)</option>
             </select>
           </div>
 
