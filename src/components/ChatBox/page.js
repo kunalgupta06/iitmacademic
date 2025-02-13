@@ -19,7 +19,7 @@ export default function ChatBox({ apiType }) {
     try {
       let response;
       if (apiType === "programme-guideline") {
-        console.log("working fine"); // Changed from "riya" to "working fine"
+        console.log("working fine"); 
         response = await sendProgrammeGuidelineQuery(input);
       } else if (apiType === "subject-queries") {
         response = await sendSubjectQuery(input);
@@ -45,7 +45,7 @@ export default function ChatBox({ apiType }) {
       {/* Heading with Image */}
       <div className="flex items-center justify-center space-x-3 mb-4" style={{ marginBottom: "0.5%", marginTop: "1%" }}>
         <img src="/chatbox_img.png" alt="Chatbot" className="w-[8%] h-auto" /> 
-        <h1 className="text-white text-2xl font-bold">Need help with your studies? Just ask!</h1>
+        <h1 className="text-white text-2xl font-bold">How can I assist you today?</h1>
       </div>
 
       {/* Chat Container (Scrollable) */}
