@@ -41,72 +41,65 @@ export default function Profile() {
   const toggleEdit = () => setIsEditing(!isEditing);
 
   return (
-    <div className="relative min-h-screen bg-white">
+    <div
+      className="relative min-h-screen flex flex-col items-center justify-center bg-cover bg-center"
+      style={{ backgroundImage: "url('/profile_bg.jpg')" }} // Full-page background
+    >
       {/* Navbar */}
       <Navbar />
 
-      {/* Background Profile Image with Adjustable Percentages */}
+      {/* Transparent Profile Container */}
       <div
-        className="absolute"
+        className="absolute flex items-center justify-between p-6"
         style={{
-          width: "40%", // Change this to adjust image width
-          height: "80%", // Change this to adjust image height
-          top: "10%", // Adjust top position
-          left: "50%", // Adjust left position
+          width: "60%", // Adjust width of the profile container
+          height: "50%", // Adjust height of the profile container
+          top: "30%", // Adjust distance from top
+          left: "16%", // Adjust distance from left
+          backgroundColor: "transparent", // Transparent container
         }}
       >
-        <Image
-          src="/profile_img.jpg"
-          alt="Profile Background"
-          layout="fill"
-          objectFit="cover"
-          className="opacity-100"
-        />
-      </div>
+        {/* Left Side: Profile Picture */}
+        <div className="flex flex-col items-end w-[86%] mr-10">
+          <Image
+            src={profile.profilePic}
+            alt="Profile"
+            width={110}
+            height={110}
+            className="w-26 h-26 rounded-lg border-4 border-blue-500"
+          />
 
-      {/* Profile Page Layout */}
-      <div className="relative min-h-screen flex items-center px-10">
-        {/* Profile Container */}
-        <div className="w-[45%] max-w-xl bg-white border-4 border-yellow-300 p-6 rounded-lg shadow-md z-10" style={{ marginLeft: "8%" }}>
-          {/* Profile Picture */}
-          <div className="flex flex-col items-center">
-            <Image
-              src={profile.profilePic}
-              alt="Profile"
-              width={100}
-              height={100}
-              className="w-24 h-24 rounded-full border-4 border-blue-500"
-            />
+          {/* Upload & Remove Buttons */}
+          {isEditing && (
+            <div className="mt-3 flex flex-col items-center gap-2">
+              <label className="cursor-pointer bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition">
+                Choose File
+                <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
+              </label>
 
-            {/* Upload & Remove Buttons */}
-            {isEditing && (
-              <div className="mt-3 flex flex-col items-center gap-2">
-                <label className="cursor-pointer bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition">
-                  Choose File
-                  <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
-                </label>
+              {profile.profilePic !== defaultPic && (
+                <button
+                  onClick={handleRemoveProfilePic}
+                  className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition"
+                >
+                  Remove
+                </button>
+              )}
+            </div>
+          )}
+        </div>
 
-                {profile.profilePic !== defaultPic && (
-                  <button
-                    onClick={handleRemoveProfilePic}
-                    className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition"
-                  >
-                    Remove Profile Picture
-                  </button>
-                )}
-              </div>
-            )}
+        {/* Right Side: Details */}
+        <div className="w-[95%]">
+          <h2 className="text-4xl font-semibold text-gray-900">{profile.fullName}</h2>
+          <p className="text-2xl text-gray-700 mb-6">{profile.role}</p>
 
-            <h2 className="text-2xl font-semibold mt-3 text-gray-900">{profile.fullName}</h2>
-            <p className="text-gray-700">{profile.email}</p>
-          </div>
-
-          {/* Profile Details */}
-          <div className="mt-6 grid grid-cols-2 gap-4">
+          {/* Profile Details in 2-Column Grid */}
+          <div className="grid grid-cols-2 gap-4">
             {isEditing ? (
               <>
                 <div className="flex flex-col">
-                  <label className="font-medium text-gray-900">Full Name:</label>
+                  <label className="font-large text-gray-900">Full Name:</label>
                   <input
                     type="text"
                     name="fullName"
@@ -116,17 +109,7 @@ export default function Profile() {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label className="font-medium text-gray-900">Email:</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={profile.email}
-                    onChange={handleChange}
-                    className="border rounded-md p-2 text-gray-900"
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <label className="font-medium text-gray-900">Username:</label>
+                  <label className="font-large text-gray-900">Username:</label>
                   <input
                     type="text"
                     name="username"
@@ -136,7 +119,17 @@ export default function Profile() {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label className="font-medium text-gray-900">Password:</label>
+                  <label className="font-large text-gray-900">Email:</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={profile.email}
+                    onChange={handleChange}
+                    className="border rounded-md p-2 text-gray-900"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label className="font-large text-gray-900">Password:</label>
                   <input
                     type="password"
                     name="password"
@@ -149,48 +142,40 @@ export default function Profile() {
             ) : (
               <>
                 <div className="flex flex-col">
-                  <span className="font-medium text-gray-900">Full Name:</span>
-                  <span className="text-gray-700">{profile.fullName}</span>
+                  <span className="font-large text-gray-900">Full Name:</span>
+                  <span className="text-xl text-gray-700">{profile.fullName}</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-medium text-gray-900">Email:</span>
-                  <span className="text-gray-700">{profile.email}</span>
+                  <span className="font-large text-gray-900">Username:</span>
+                  <span className="text-xl text-gray-700">{profile.username}</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-medium text-gray-900">Username:</span>
-                  <span className="text-gray-700">{profile.username}</span>
+                  <span className="font-large text-gray-900">Email:</span>
+                  <span className="text-xl text-gray-700">{profile.email}</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-medium text-gray-900">Password:</span>
-                  <span className="text-gray-700">{profile.password}</span>
-                </div>
-
-                {/* Non-editable Role Field */}
-                <div className="flex flex-col">
-                  <span className="font-medium text-gray-900">Role:</span>
-                  <span className="text-gray-700">{profile.role}</span>
+                  <span className="font-large text-gray-900">Password:</span>
+                  <span className="text-xl text-gray-700">{profile.password}</span>
                 </div>
               </>
             )}
           </div>
 
-          {/* Buttons */}
-          <div className="mt-6 flex justify-end">
-            {isEditing ? (
-              <button onClick={toggleEdit} className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
-                Update
-              </button>
-            ) : (
-              <button onClick={toggleEdit} className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                Edit Profile
-              </button>
-            )}
+          {/* Edit Profile Button (Inside the Container) */}
+          <div className="mt-8 flex justify-end mr-5">
+            <button
+              onClick={toggleEdit}
+              className="px-6 py-3 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 transition"
+            >
+              {isEditing ? "Update" : "Edit Profile"}
+            </button>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
 
 
 
