@@ -31,8 +31,8 @@ export default function FAQ() {
       className="w-full h-screen flex flex-col items-center justify-start overflow-hidden"
       style={{ backgroundColor: "#00d0ea" }} 
     >
-      {/* Navbar with Go Back to Dashboard */}
-      <Navbar backLink="/Dashboard" /> {/* Set Go Back to Dashboard */}
+      {/* Navbar with Go Back to Dashboard 
+      <Navbar backLink="/Dashboard" /> */}
 
       {/* Centered FAQ Image (Heading) */}
       <img 

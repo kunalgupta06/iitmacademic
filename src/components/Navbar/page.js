@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 export default function Navbar({ backLink = "/" }) {
   const pathname = usePathname();
 
-  // Hide Navbar on login & signup pages
-  if (pathname === "/login" || pathname === "/signup" || pathname === "/forgot-password") {
+  // Hide Navbar on home page
+  if (pathname === "/home-page") {
     return null;
   }
 
@@ -18,17 +18,16 @@ export default function Navbar({ backLink = "/" }) {
 
       {/* Navigation Buttons */}
       <div className="space-x-4 flex">
-        {/* Hide "Go Back" on Profile Page */}
-        {pathname !== "/profile" && (
-          <Link href={backLink}>
-            <button className="px-4 py-2 border-2 border-black text-black font-semibold rounded-lg transition-colors hover:bg-black hover:text-white">
-              Go Back
-            </button>
-          </Link>
-        )}
+        {/* "Go Back" Button (Now Uses history.back()) */}
+        <button
+          onClick={() => history.back()}
+          className="px-4 py-2 border-2 border-black text-black font-semibold rounded-lg transition-colors hover:bg-black hover:text-white"
+        >
+          Go Back
+        </button>
 
-        {/* Hide "Profile" and "Logout" on Forgot Password & Signup pages */}
-        {pathname !== "/forgot-password" && pathname !== "/signup" && pathname !== "/profile" && (
+        {/* Hide "Profile" and "Logout" on Forgot Password & Signup & Login pages */}
+        {pathname !== "/forgot-password" && pathname !== "/signup" && pathname !== "/login" && pathname !== "/profile" && (
           <Link href="/profile">
             <button className="px-4 py-2 border-2 border-black text-black font-semibold rounded-lg transition-colors hover:bg-black hover:text-white">
               Profile
@@ -36,8 +35,8 @@ export default function Navbar({ backLink = "/" }) {
           </Link>
         )}
 
-        {pathname !== "/forgot-password" && pathname !== "/signup" && (
-          <Link href="/login">
+        {pathname !== "/forgot-password" && pathname !== "/signup" && pathname !== "/login" && (
+          <Link href="/home-page">
             <button className="px-4 py-2 border-2 border-black text-black font-semibold rounded-lg transition-colors hover:bg-black hover:text-white">
               Logout
             </button>

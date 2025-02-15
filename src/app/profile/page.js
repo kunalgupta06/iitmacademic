@@ -60,7 +60,7 @@ export default function Profile() {
         }}
       >
         {/* Left Side: Profile Picture */}
-        <div className="flex flex-col items-end w-[86%] mr-10">
+        <div className="flex flex-col items-end w-[76%] mr-10">
           <Image
             src={profile.profilePic}
             alt="Profile"
@@ -90,7 +90,7 @@ export default function Profile() {
         </div>
 
         {/* Right Side: Details */}
-        <div className="w-[95%]">
+        <div className="w-[85%]">
           <h2 className="text-4xl font-semibold text-gray-900">{profile.fullName}</h2>
           <p className="text-2xl text-gray-700 mb-6">{profile.role}</p>
 

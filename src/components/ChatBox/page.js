@@ -37,10 +37,10 @@ export default function ChatBox({ apiType }) {
   }, [messages]);
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-orange-500 p-4">
+    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-orange-300 p-4">
       
-      {/* Navbar with Backlink to "choose-subject" */}
-      <Navbar backLink="/choose-subject" />
+      {/* Navbar with Backlink to "choose-subject" 
+      <Navbar backLink="/choose-subject" />*/}
 
       {/* Heading with Image */}
       <div className="flex items-center justify-center space-x-3 mb-4" style={{ marginBottom: "0.5%", marginTop: "1%" }}>

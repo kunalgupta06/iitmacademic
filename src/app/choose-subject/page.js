@@ -54,8 +54,8 @@ export default function ChooseSubject() {
         backgroundRepeat: "no-repeat"
       }}
     >
-      {/* Navbar with Go Back to Dashboard */}
-      <Navbar backLink="/Dashboard" />
+      {/* Navbar with Go Back to Dashboard 
+      <Navbar backLink="/Dashboard" />*/}
 
       {/* Fixed Container to Prevent Shifting */}
       <div className="flex flex-col items-center w-full max-w-6xl mt-14">

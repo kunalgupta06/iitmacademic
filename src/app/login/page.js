@@ -13,6 +13,13 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Login Data:", formData);
+
+    // Redirect based on role
+    if (formData.role === "student") {
+      window.location.href = "/student-dashboard"; // Redirect to Student Dashboard
+    } else if (formData.role === "instructor") {
+      window.location.href = "/instructor-dashboard"; // Redirect to Instructor Analysis Page
+    }
   };
 
   return (
@@ -31,7 +38,7 @@ export default function Login() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              required
+              //required
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-white bg-opacity-90 text-gray-900"
             />
           </div>
@@ -43,7 +50,7 @@ export default function Login() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              required
+              //required
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-white bg-opacity-90 text-gray-900"
             />
           </div>
@@ -58,7 +65,7 @@ export default function Login() {
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-white bg-opacity-90 text-gray-900"
             >
               <option value="student">Student</option>
-              <option value="ta">Teaching Assistant (TA)</option>
+              <option value="instructor">Instructor</option>
             </select>
           </div>
 
@@ -83,3 +90,4 @@ export default function Login() {
     </div>
   );
 }
+

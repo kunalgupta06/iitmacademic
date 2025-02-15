@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar/page"; // Import Navbar
 export default function Dashboard() {
   return (
     <>
-      <Navbar backLink="/login" /> {/* Set Go Back to Login */}
+      {/*<Navbar backLink="/login" /> {/* Set Go Back to Login */}
       <div className="absolute inset-0 -top-9">
         {/* Background Image */}
         <Image src={"/dashboard_bg.jpg"} alt="Books Background" layout="fill" objectFit="cover" quality={100} className="absolute"/>
