@@ -1,6 +1,39 @@
 "use client";
 
+import { useState } from "react";
+
 export default function Signup() {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    username: "",
+    role: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!formData.role) {
+      alert("Please select a role before signing up.");
+      return;
+    }
+
+    // Show welcome message
+    alert(`Welcome ${formData.fullName}! Your ${formData.role === "student" ? "Student" : "Instructor"} Dashboard is ready!`);
+
+    // Redirect based on role
+    if (formData.role === "student") {
+      window.location.href = "/student-dashboard";
+    } else if (formData.role === "instructor") {
+      window.location.href = "/instructor-dashboard";
+    }
+  };
+
   return (
     <div className="relative w-full h-screen flex items-center justify-center">
       {/* Background Image */}
@@ -13,49 +46,82 @@ export default function Signup() {
         {/* Cool Heading */}
         <h1 className="text-4xl font-bold text-gray-800 mb-10">Register Today!</h1>
 
-        {/* Form Fields - Arranged Horizontally */}
-        <form className="w-full flex flex-wrap justify-center gap-6">
+        {/* Form Fields - Horizontally Aligned */}
+        <form className="w-full flex flex-wrap justify-center gap-6 items-center" onSubmit={handleSubmit}>
           {/* Full Name */}
-          <input 
-            type="text" 
-            placeholder="Full Name"
-            className="px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 outline-none text-black placeholder-gray-500 w-1/4"
-          />
+          <div className="w-1/4">
+            <input 
+              type="text" 
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
+              placeholder="Full Name"
+              //required
+              className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 outline-none text-black placeholder-gray-500"
+            />
+          </div>
 
           {/* Email */}
-          <input 
-            type="email" 
-            placeholder="Email"
-            className="px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 outline-none text-black placeholder-gray-500 w-1/4"
-          />
+          <div className="w-1/4">
+            <input 
+              type="email" 
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email"
+              //required
+              className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 outline-none text-black placeholder-gray-500"
+            />
+          </div>
 
           {/* Username */}
-          <input 
-            type="text" 
-            placeholder="Username"
-            className="px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 outline-none text-black placeholder-gray-500 w-1/4"
-          />
+          <div className="w-1/4">
+            <input 
+              type="text" 
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              placeholder="Username"
+              //required
+              className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 outline-none text-black placeholder-gray-500"
+            />
+          </div>
 
           {/* Role Dropdown */}
-          <select 
-            defaultValue="" 
-            className="px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 outline-none text-black bg-white cursor-pointer w-1/4"
-          >
-            <option value="" disabled hidden>Select Role</option>
-            <option value="student">Student</option>
-            <option value="instructor">Instructor</option>
-          </select>
+          <div className="w-1/4">
+            <select 
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              //required
+              className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 outline-none text-black bg-white cursor-pointer"
+            >
+              <option value="" disabled hidden>Select Role</option>
+              <option value="student">Student</option>
+              <option value="instructor">Instructor</option>
+            </select>
+          </div>
 
           {/* Password */}
-          <input 
-            type="password" 
-            placeholder="Password"
-            className="px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 outline-none text-black placeholder-gray-500 w-1/4"
-          />
+          <div className="w-1/4">
+            <input 
+              type="password" 
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Password"
+              //required
+              className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 outline-none text-black placeholder-gray-500"
+            />
+          </div>
         </form>
 
         {/* Sign Up Button */}
-        <button className="mt-8 px-6 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition">
+        <button 
+          type="submit"
+          className="mt-8 px-6 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition w-1/4"
+          onClick={handleSubmit}
+        >
           Sign Up
         </button>
 
@@ -67,6 +133,8 @@ export default function Signup() {
     </div>
   );
 }
+
+
 
 
 

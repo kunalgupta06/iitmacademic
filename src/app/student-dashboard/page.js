@@ -14,12 +14,12 @@ export default function Dashboard() {
 
         {/* Overlaying Content */}
         <div className="absolute top-24 w-full text-center">
-          <h1 className="text-4xl font-bold text-gray-800 drop-shadow-lg">
-            Hey! Your academic companion is here!
+          <h1 className="text-4xl font-bold text-blue-900 drop-shadow-lg">
+          AskIVA welcomes you to your desk!
           </h1>
           <p className="text-gray-600 text-lg mt-2 drop-shadow-lg">
             Click on the book titles below— 
-            <strong>FAQs</strong> for answers to frequently asked questions about the programme, 
+            <strong>FAQs</strong> for answers to frequently asked questions, 
             <strong> Subject-Specific Queries</strong> to get help with subject-related doubts and explanations, 
             and <strong>Programme Guidelines</strong> for doubts related to rules, courses, and policies of the programme.
           </p>

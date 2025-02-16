@@ -1,30 +1,44 @@
 "use client";
 import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
-import Link from "next/link";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
-// Register necessary Chart.js components
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 
 export default function QuestionsPage() {
   const questionData = {
     labels: ["Question 1", "Question 2", "Question 3", "Question 4", "Question 5"],
     datasets: [
       {
-        label: "Frequency of Questions",
         data: [50, 100, 150, 75, 125],
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        borderColor: "rgba(75, 192, 192, 1)",
-        borderWidth: 1,
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"],
+        borderColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"],
+        borderWidth: 2,
+        borderRadius: 8,
+        barThickness: 50,
+        hoverBackgroundColor: "rgba(0, 0, 0, 0.2)",
       },
     ],
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-      <h2 className="text-3xl font-bold text-blue-600 mb-6">Most Asked Questions</h2>
-      <div className="w-full max-w-2xl">
-        <Bar data={questionData} options={{ responsive: true }} />
+    <div className="relative w-full h-screen flex flex-col items-center justify-center p-6">
+      <div className="absolute inset-0">
+        <img src="/graphs.jpeg" alt="Questions Background" className="w-full h-full object-cover opacity-70" />
+      </div>
+
+      <div className="relative bg-black bg-opacity-70 p-8 rounded-lg shadow-lg w-full max-w-3xl">
+        <h2 className="text-3xl font-bold text-white text-center mb-6">Most Asked Questions</h2>
+        <div className="w-full">
+          <Bar data={questionData} options={{ responsive: true }} />
+        </div>
       </div>
     </div>
   );

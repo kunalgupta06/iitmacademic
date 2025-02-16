@@ -1,6 +1,14 @@
 "use client";
 import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 import Link from "next/link";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -12,19 +20,70 @@ export default function ConceptsPage() {
       {
         label: "Frequency of Concepts",
         data: [45, 80, 90, 110, 130],
-        backgroundColor: "rgba(255, 159, 64, 0.2)",
-        borderColor: "rgba(255, 159, 64, 1)",
-        borderWidth: 1,
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.6)",
+          "rgba(54, 162, 235, 0.6)",
+          "rgba(255, 206, 86, 0.6)",
+          "rgba(75, 192, 192, 0.6)",
+          "rgba(153, 102, 255, 0.6)",
+        ],
+        borderColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
+        ],
+        borderWidth: 2,
+        borderRadius: 8, // Rounded bars
+        barThickness: 50, // Increased bar width
+        hoverBackgroundColor: "rgba(0, 0, 0, 0.2)", // Subtle hover effect
       },
     ],
   };
 
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: { display: false }, // Hides the legend
+      title: {
+        display: true,
+        text: "Top 5 Most Asked Concepts",
+        font: { size: 18 },
+        color: "#fff",
+      },
+    },
+    scales: {
+      x: {
+        ticks: { color: "#fff" }, // White x-axis labels
+      },
+      y: {
+        ticks: { color: "#fff" }, // White y-axis labels
+      },
+    },
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-      <h2 className="text-3xl font-bold text-green-600 mb-6">Most Asked Concepts</h2>
-      <div className="w-full max-w-2xl">
-        <Bar data={conceptData} options={{ responsive: true }} />
+    <div className="relative w-full h-screen flex flex-col items-center justify-center p-6">
+      {/* Full Page Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src="/graphs.jpeg"
+          alt="Graphs Background"
+          className="w-full h-full object-cover opacity-70"
+        />
+      </div>
+
+      {/* Content Container */}
+      <div className="relative bg-black bg-opacity-70 p-8 rounded-lg shadow-lg w-full max-w-3xl">
+        <h2 className="text-3xl font-bold text-white text-center mb-6">
+          Most Asked Concepts
+        </h2>
+        <div className="w-full">
+          <Bar data={conceptData} options={chartOptions} />
+        </div>
       </div>
     </div>
   );
 }
+

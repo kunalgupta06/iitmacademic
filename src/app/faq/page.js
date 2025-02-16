@@ -4,13 +4,12 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar/page"; // Import Navbar
 
 const faqs = [
-  { question: "How do I reset my password?", answer: "Click 'Forgot password?' on the login page." },
-  { question: "Can I change my role after signing up?", answer: "Contact support for role changes." },
-  { question: "What subjects are available?", answer: "Mathematics, Physics, Chemistry, and more!" },
+  { question: "How do I reset my password?", answer: "Click 'Forgot password?' on the 'Login' page." },
+  { question: "Can I change my role after signing up?", answer: "No, roles once selected while registering/signing up cannot be changed." },
+  { question: "What subjects are available?", answer: "Software Engineering, English, Statistics, and more!" },
   { question: "Is there a mobile app available?", answer: "Not yet, but we are working on it!" },
-  { question: "How do I contact support?", answer: "Use the 'Contact Us' page or email us." },
-  { question: "How can I track my progress?", answer: "Your dashboard shows all progress stats." },
-  { question: "Can I suggest new features?", answer: "Yes! Email us with your feature suggestions." },
+  { question: "How do I contact support?", answer: "Email any team member on the 'About Us'page." },
+  { question: "Can I suggest new features?", answer: "Yes! Email any team member with your feedback and/or suggestions on 'About Us' page." },
   { question: "Do you offer certificates?", answer: "Yes, certificates are awarded for completed courses." },
 ];
 

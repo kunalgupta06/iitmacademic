@@ -5,92 +5,166 @@ import Navbar from "@/components/Navbar/page";
 import { sendProgrammeGuidelineQuery, sendSubjectQuery } from "@/services/chatService";
 
 export default function ChatBox({ apiType }) {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([]); 
   const [input, setInput] = useState("");
-  const chatEndRef = useRef(null); // Reference for auto-scrolling
+  const [chatHistory, setChatHistory] = useState([]); 
+  const [currentChat, setCurrentChat] = useState([]); 
+  const [selectedChatId, setSelectedChatId] = useState(null);
+  const chatEndRef = useRef(null); 
 
   // Function to send message
   const sendMessage = async () => {
     if (!input.trim()) return;
-    const newMessages = [...messages, { sender: "user", text: input }];
-    setMessages(newMessages);
+    const newMessages = [...currentChat, { sender: "user", text: input }];
+    setCurrentChat(newMessages);
     setInput("");
 
     try {
       let response;
       if (apiType === "programme-guideline") {
-        console.log("working fine"); 
         response = await sendProgrammeGuidelineQuery(input);
       } else if (apiType === "subject-queries") {
         response = await sendSubjectQuery(input);
       }
 
-      setMessages([...newMessages, { sender: "ai", text: response?.answer || "No response received." }]);
+      const updatedMessages = [...newMessages, { sender: "ai", text: response?.answer || "No response received." }];
+      setCurrentChat(updatedMessages);
     } catch (error) {
-      setMessages([...newMessages, { sender: "ai", text: "Error: Unable to get a response." }]);
+      setCurrentChat([...newMessages, { sender: "ai", text: "Error: Unable to get a response." }]);
+    }
+  };
+
+  // Save chat and start a new one
+  const startNewChat = () => {
+    if (currentChat.length > 0) {
+      setChatHistory([{ id: Date.now(), name: `Chat ${chatHistory.length + 1}`, messages: currentChat }, ...chatHistory]);
+    }
+    setCurrentChat([]);
+    setSelectedChatId(null);
+  };
+
+  // Open a chat from history
+  const openChat = (chatId) => {
+    const chat = chatHistory.find((c) => c.id === chatId);
+    if (chat) {
+      setCurrentChat(chat.messages);
+      setSelectedChatId(chatId);
+    }
+  };
+
+  // Rename a chat
+  const renameChat = (chatId, newName) => {
+    setChatHistory(chatHistory.map(chat => 
+      chat.id === chatId ? { ...chat, name: newName } : chat
+    ));
+  };
+
+  // Delete a chat
+  const deleteChat = (chatId) => {
+    setChatHistory(chatHistory.filter(chat => chat.id !== chatId));
+    if (selectedChatId === chatId) {
+      setCurrentChat([]);
+      setSelectedChatId(null);
     }
   };
 
   // Auto-scroll to latest message
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [currentChat]);
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-orange-300 p-4">
+    <div 
+      className="w-full min-h-screen flex flex-col items-center justify-center bg-cover bg-center p-4"
+      style={{ backgroundImage: "url('/chatbox_bg.jpeg')" }}
+    >
       
-      {/* Navbar with Backlink to "choose-subject" 
-      <Navbar backLink="/choose-subject" />*/}
-
-      {/* Heading with Image */}
+      {/* Heading with Image (Above Chat Container) */}
       <div className="flex items-center justify-center space-x-3 mb-4" style={{ marginBottom: "0.5%", marginTop: "1%" }}>
-        <img src="/chatbox_img.png" alt="Chatbot" className="w-[8%] h-auto" /> 
+        <img src="/chatbox_img.png" alt="Chatbot" className="w-[8%] h-auto" />
         <h1 className="text-white text-2xl font-bold">How can I assist you today?</h1>
       </div>
 
-      {/* Chat Container (Scrollable) */}
-      <div 
-        className="bg-white p-4 rounded-2xl shadow-lg flex flex-col justify-between" 
-        style={{ width: "80%", height: "80vh", overflow: "hidden" }} 
-      >
+      {/* Chat Container */}
+      <div className="bg-white rounded-2xl shadow-lg flex overflow-hidden" style={{ width: "80%", height: "80vh" }}>
         
-        {/* Messages Area (Scrollable) */}
-        <div 
-          className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar" 
-          style={{ maxHeight: "80%" }}
-        >
-          {messages.map((msg, index) => (
-            <div key={index} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
-              <div className={`p-3 rounded-lg max-w-[80%] text-white ${msg.sender === "user" ? "bg-blue-500" : "bg-gray-700"} shadow-md`}>
-                {msg.text}
-              </div>
-            </div>
-          ))}
-          {/* Empty div to track last message for auto-scroll */}
-          <div ref={chatEndRef}></div>
-        </div>
-
-        {/* Input Bar */}
-        <div className="relative w-full">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="w-full p-3 pl-5 border-none rounded-full text-black bg-gray-200 focus:outline-none"
-            placeholder="Type your message..."
-          />
-          <button
-            onClick={sendMessage}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700"
+        {/* Chat History Panel (Left 20%) */}
+        <div className="w-1/5 bg-gray-200 p-4 flex flex-col rounded-l-2xl">
+          <h2 className="text-lg text-black font-bold mb-3 text-center">Chat History</h2>
+          
+          {/* New Chat Button */}
+          <button 
+            onClick={startNewChat} 
+            className="w-full bg-blue-500 text-white py-2 rounded-md mb-4 hover:bg-blue-700"
           >
-            Ask
+            + New Chat
           </button>
+
+          {/* Chat History List (Scrollable) */}
+          <div className="flex-1 overflow-y-auto space-y-2 custom-scrollbar">
+            {chatHistory.map((chat) => (
+              <div key={chat.id} className="flex items-center text-black justify-between bg-white p-2 rounded-md hover:bg-gray-300">
+                {/* Chat Name (Editable) */}
+                <input
+                  type="text"
+                  value={chat.name}
+                  onChange={(e) => renameChat(chat.id, e.target.value)}
+                  className="w-full bg-transparent focus:outline-none"
+                  onClick={() => openChat(chat.id)}
+                />
+                {/* Delete Button */}
+                <button 
+                  onClick={() => deleteChat(chat.id)} 
+                  className="text-red-500 font-bold hover:text-red-700"
+                >
+                  ✖
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
 
+        {/* Chat Area (Right 80%) */}
+        <div className="w-4/5 flex flex-col justify-between p-4 rounded-r-2xl">
+          
+          {/* Chat Messages */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+            {currentChat.map((msg, index) => (
+              <div key={index} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
+                <div className={`p-3 rounded-lg max-w-[80%] text-white ${msg.sender === "user" ? "bg-blue-500" : "bg-gray-700"} shadow-md`}>
+                  {msg.text}
+                </div>
+              </div>
+            ))}
+            <div ref={chatEndRef}></div> {/* Auto-scroll anchor */}
+          </div>
+
+          {/* Input Field */}
+          <div className="relative w-full p-4">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              className="w-full p-3 pl-5 border-none rounded-full text-black bg-gray-200 focus:outline-none"
+              placeholder="Type your message..."
+            />
+            <button
+              onClick={sendMessage}
+              className="absolute right-6 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700"
+            >
+              Ask
+            </button>
+          </div>
+
+        </div>
       </div>
     </div>
   );
 }
+
+
+
+
 
 
 
