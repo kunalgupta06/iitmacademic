@@ -1,140 +1,112 @@
 "use client";
 
-export default function AboutUs() {
+import Image from "next/image";
+
+const teamMembers = [
+  { name: "Ann Kurian", email: "21f2000397@ds.study.iitm.ac.in" },
+  { name: "Bhavya Sharma", email: "21f2000707@ds.study.iitm.ac.in" },
+  { name: "Diya Nathwani", email: "21f1003794@ds.study.iitm.ac.in" },
+  { name: "G Hamsini", email: "22f3000767@ds.study.iitm.ac.in" },
+  { name: "Kunal Gupta", email: "21f3001818@ds.study.iitm.ac.in" },
+  { name: "Riya Palesha", email: "21f1003329@ds.study.iitm.ac.in" },
+  { name: "Sankalp Kundu", email: "21f1002742@ds.study.iitm.ac.in" },
+];
+
+export default function AboutUsPage() {
   return (
-    <div className="relative w-full h-screen bg-white">
-      {/* Right-side Background Image */}
-      <div className="absolute top-0 right-2 w-[50%] h-full">
-        <img
-          src="/about_us_img.jpg"
-          alt="About Us"
-          className="w-full h-full object-cover"
-        />
+    <div className="min-h-screen py-20 px-6 flex flex-col items-center">
+      {/* About Us Heading and Image */}
+      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 items-center gap-10 animate-fadeIn">
+        {/* Left - About Us Heading & Project Overview */}
+        <div>
+          <h1 className="text-5xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
+            About Us
+          </h1>
+          <p className="text-gray-700 mt-2 text-lg">
+            Learn more about AskIVA and the team behind it!
+          </p>
+
+          <h2 className="mt-10 text-3xl font-bold bg-gradient-to-r from-blue-500 to-indigo-500 text-transparent bg-clip-text">
+            Project Overview
+          </h2>
+          <p className="text-gray-800 mt-4 text-lg font-semibold">
+            AskIVA - Your IITM Academic Companion!
+          </p>
+          <p className="text-gray-700 mt-2 text-lg">
+            AskIVA (IITM Virtual Assistant) is an AI-powered academic guidance
+            agent designed to enhance the learning experience for students
+            enrolled in the IITM BS program.
+          </p>
+          <p className="text-gray-700 mt-2 text-lg">
+            Rather than directly providing answers, AskIVA nudges students
+            toward better learning strategies and suggests relevant resources.
+          </p>
+        </div>
+
+        {/* Right - Image */}
+        <div className="flex justify-center animate-fadeIn">
+          <Image
+            src="/about-us.jpg"
+            alt="About Us"
+            width={600}
+            height={500}
+            className="transition-transform duration-300 hover:scale-105"
+          />
+        </div>
       </div>
 
-      {/* Title - Centered Below Navbar 
-      <h1 className="absolute top-[5%] left-1/2 transform -translate-x-1/2 text-3xl font-bold text-gray-900">
-        Our Mission & Team
-      </h1>*/}
-
-      {/* Content Section on the Left */}
-      <div
-        className="absolute w-[45%] h-[90%] left-[3%] top-[7.5%] bg-white p-8"
-      >
-        {/* About Project */}
-        <h2 className="text-2xl font-semibold text-black mb-3">
-          Project Overview
-        </h2>
-        <p className="text-yellow-500 mb-2">
-          <strong>AskIVA - Your IITM Academic Companion!</strong>
-        </p>
-        <p className="text-gray-700 mb-2">
-          AskIVA (IITM Virtual Assistant) is an AI-powered academic guidance
-          agent designed to enhance the learning experience for students
-          enrolled in the IITM BS program.
-        </p>
-        <p className="text-gray-700 mb-2">
-          Rather than directly providing answers, AskIVA nudges students toward
-          better learning strategies and suggests relevant resources.
-        </p>
-
-        {/* Key Features */}
-        <h3 className="text-lg font-semibold text-red-500 mt-4 mb-2">
+      {/* Key Features Section */}
+      <div className="mt-16 max-w-6xl w-full bg-blue-50 p-8 rounded-lg shadow-lg animate-fadeIn">
+        <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-transparent bg-clip-text">
           Key Features
-        </h3>
-        <ul className="list-disc list-inside text-gray-700 space-y-1">
-          <li>
-            <strong>Personalized Academic Guidance:</strong> Directs students to
-            relevant resources.
-          </li>
-          <li>
-            <strong>Study Strategy Support:</strong> Encourages effective
-            learning habits.
-          </li>
-          <li>
-            <strong>Collaborative Learning Environment:</strong> Helps students
-            find credible academic references.
-          </li>
-        </ul>
+        </h2>
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition duration-300 hover:scale-105">
+            <h3 className="text-xl font-semibold text-blue-700">
+              🎯 Personalized Academic Guidance
+            </h3>
+            <p className="text-gray-700 mt-2">
+              Directs students to relevant resources.
+            </p>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition duration-300 hover:scale-105">
+            <h3 className="text-xl font-semibold text-blue-700">
+              📖 Study Strategy Support
+            </h3>
+            <p className="text-gray-700 mt-2">
+              Encourages effective learning habits.
+            </p>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition duration-300 hover:scale-105">
+            <h3 className="text-xl font-semibold text-blue-700">
+              🔗 Collaborative Learning
+            </h3>
+            <p className="text-gray-700 mt-2">
+              Helps students find credible academic references.
+            </p>
+          </div>
+        </div>
+      </div>
 
-        {/* Meet Our Team */}
-        <h2 className="text-2xl font-semibold text-black mt-6 mb-2">
+      {/* Team Section with Grid Design */}
+      <div className="mt-16 max-w-6xl w-full animate-fadeIn">
+        <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-transparent bg-clip-text">
           Meet Our Team
         </h2>
-        <ul className="text-gray-700 space-y-1">
-          <li>
-            Ann Kurian -{" "}
-            <a
-              href="mailto:21f2000397@ds.study.iitm.ac.in"
-              className="text-blue-600 hover:underline"
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {teamMembers.map((member, index) => (
+            <div
+              key={index}
+              className="bg-white p-6 rounded-lg shadow-md text-center border border-gray-200 hover:shadow-lg transform transition duration-300 hover:scale-105"
             >
-              21f2000397@ds.study.iitm.ac.in
-            </a>
-          </li>
-          <li>
-            Bhavya Sharma -{" "}
-            <a
-              href="mailto:21f2000707@ds.study.iitm.ac.in"
-              className="text-blue-600 hover:underline"
-            >
-              21f2000707@ds.study.iitm.ac.in
-            </a>
-          </li>
-          <li>
-            Diya Nathwani -{" "}
-            <a
-              href="mailto:21f1003794@ds.study.iitm.ac.in"
-              className="text-blue-600 hover:underline"
-            >
-              21f1003794@ds.study.iitm.ac.in
-            </a>
-          </li>
-          <li>
-            G Hamsini -{" "}
-            <a
-              href="mailto:22f3000767@ds.study.iitm.ac.in"
-              className="text-blue-600 hover:underline"
-            >
-              22f3000767@ds.study.iitm.ac.in
-            </a>
-          </li>
-          <li>
-            Kunal Gupta -{" "}
-            <a
-              href="mailto:21f3001818@ds.study.iitm.ac.in"
-              className="text-blue-600 hover:underline"
-            >
-              21f3001818@ds.study.iitm.ac.in
-            </a>
-          </li>
-          <li>
-            Riya Palesha -{" "}
-            <a
-              href="mailto:21f1003329@ds.study.iitm.ac.in"
-              className="text-blue-600 hover:underline"
-            >
-              21f1003329@ds.study.iitm.ac.in
-            </a>
-          </li>
-          <li>
-            Sankalp Kundu -{" "}
-            <a
-              href="mailto:21f1002742@ds.study.iitm.ac.in"
-              className="text-blue-600 hover:underline"
-            >
-              21f1002742@ds.study.iitm.ac.in
-            </a>
-          </li>
-        </ul>
+              <h3 className="text-2xl font-semibold text-blue-700">
+                {member.name}
+              </h3>
+              <p className="text-gray-600 mt-2">{member.email}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
-
-
-
-
-
-  
-  
-  

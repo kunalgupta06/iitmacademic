@@ -12,82 +12,90 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login Data:", formData);
 
     // Redirect based on role
     if (formData.role === "student") {
-      window.location.href = "/student-dashboard"; // Redirect to Student Dashboard
+      window.location.href = "/student-dashboard";
     } else if (formData.role === "instructor") {
-      window.location.href = "/instructor-dashboard"; // Redirect to Instructor Analysis Page
+      window.location.href = "/instructor-dashboard";
     }
   };
 
   return (
-    <div 
-      className="relative w-full h-screen bg-cover bg-center flex items-center justify-end pr-24"
-      style={{ backgroundImage: "url('/login_bg.jpg')" }} // Background image
-    >
-      <div className="bg-white bg-opacity-80 p-6 rounded-lg shadow-xl w-[450px]">
-        <h2 className="text-2xl font-bold text-green-800 text-center">Login</h2> {/* Dark Green Heading */}
+    <div className="relative w-full h-screen flex items-center justify-center ">
+      {/* Background Image (Same as Signup Page) */}
+      <div className="absolute inset-0">
+        <img src="/signup_bg.jpg" alt="Login Background" className="w-full h-full object-cover" />
+      </div>
 
-        <form className="mt-4" onSubmit={handleSubmit}>
-          <div>
-            <label className="block text-gray-900 font-medium">Email</label>
+      {/* Login Form Section */}
+      <div className="relative w-full max-w-4xl p-8 flex flex-col items-center mt-60">
+        {/* Cool Heading */}
+        <h1 className="text-4xl font-bold text-gray-800 mb-10">Welcome Back!</h1>
+
+        {/* Form Fields - Horizontally Aligned */}
+        <form className="w-full flex flex-wrap justify-center gap-6 items-center" onSubmit={handleSubmit}>
+          {/* Email */}
+          <div className="w-1/4">
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              //required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-white bg-opacity-90 text-gray-900"
+              placeholder="Email"
+              className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 outline-none text-black placeholder-gray-500"
             />
           </div>
 
-          <div className="mt-3">
-            <label className="block text-gray-900 font-medium">Password</label>
+          {/* Password */}
+          <div className="w-1/4">
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              //required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-white bg-opacity-90 text-gray-900"
+              placeholder="Password"
+              className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 outline-none text-black placeholder-gray-500"
             />
           </div>
 
-          {/* Role Selection Field */}
-          <div className="mt-3">
-            <label className="block text-gray-900 font-medium">Login as</label>
+          {/* Role Selection */}
+          <div className="w-1/4">
             <select
               name="role"
               value={formData.role}
               onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 bg-white bg-opacity-90 text-gray-900"
+              className="w-full px-4 py-2 border border-gray-400 rounded-md bg-white text-black cursor-pointer shadow-sm transition-all duration-300 
+                        focus:ring-2 focus:ring-blue-400 focus:border-blue-500 
+                        hover:bg-gray-100 hover:border-blue-500"
             >
+              <option value="" disabled hidden>Select Role</option>
               <option value="student">Student</option>
               <option value="instructor">Instructor</option>
             </select>
           </div>
 
-          <div className="text-right mt-2">
-            <Link href="/forgot-password" className="text-sm text-red-400 hover:underline">
-              Forgot password?
-            </Link> {/* Light Red */}
-          </div>
-
-          <button
-            type="submit"
-            className="w-full mt-4 bg-green-400 text-white py-2 rounded-lg hover:bg-green-500 transition text-lg"
-          >
-            Login
-          </button> {/* Light Green Button */}
         </form>
 
-        <p className="text-center text-gray-800 mt-3 text-sm">
-          Don't have an account? <Link href="/signup" className="text-blue-800 hover:underline">Sign Up</Link> {/* Dark Blue */}
+        {/* Login Button */}
+        <button
+          type="submit"
+          className="mt-6 px-6 py-1 border border-blue-600 bg-blue-100 text-blue-700 text-lg rounded-lg shadow-lg hover:bg-blue-200  transition w-1/4"
+          onClick={handleSubmit}
+        >
+          Login
+        </button>
+
+        {/* Forgot Password */}
+        <p className="mt-3 text-sm text-gray-600">
+          <Link href="/forgot-password" className="text-red-500 hover:underline">Forgot Password?</Link>
+        </p>
+
+        {/* Redirect to Signup */}
+        <p className="mt-2 text-sm text-gray-600">
+          Don't have an account? <Link href="/signup" className="text-blue-600 hover:underline">Sign Up</Link>
         </p>
       </div>
     </div>
   );
 }
-

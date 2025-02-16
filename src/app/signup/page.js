@@ -44,7 +44,7 @@ export default function Signup() {
       {/* Signup Form Section */}
       <div className="relative w-full max-w-4xl p-8 flex flex-col items-center mt-60">
         {/* Cool Heading */}
-        <h1 className="text-4xl font-bold text-gray-800 mb-10">Register Today!</h1>
+        <h1 className="text-4xl font-bold text-gray-800 mb-4">Register Today!</h1>
 
         {/* Form Fields - Horizontally Aligned */}
         <form className="w-full flex flex-wrap justify-center gap-6 items-center" onSubmit={handleSubmit}>
@@ -89,18 +89,20 @@ export default function Signup() {
 
           {/* Role Dropdown */}
           <div className="w-1/4">
-            <select 
+            <select
               name="role"
               value={formData.role}
               onChange={handleChange}
-              //required
-              className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300 outline-none text-black bg-white cursor-pointer"
+              className="w-full px-4 py-2 border border-gray-400 rounded-md bg-white text-black cursor-pointer shadow-sm transition-all duration-300 
+                        focus:ring-2 focus:ring-blue-400 focus:border-blue-500 
+                        hover:bg-gray-100 hover:border-blue-500"
             >
               <option value="" disabled hidden>Select Role</option>
               <option value="student">Student</option>
               <option value="instructor">Instructor</option>
             </select>
           </div>
+
 
           {/* Password */}
           <div className="w-1/4">
@@ -119,16 +121,17 @@ export default function Signup() {
         {/* Sign Up Button */}
         <button 
           type="submit"
-          className="mt-8 px-6 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition w-1/4"
+          className="mt-4 px-6 py-1 border border-blue-600 bg-blue-100 text-blue-700 text-lg rounded-lg shadow-lg hover:bg-blue-200 transition w-1/4"
           onClick={handleSubmit}
         >
           Sign Up
         </button>
 
         {/* Redirect to Login */}
-        <p className="mt-4 text-sm text-gray-600">
+        <p className="mt-2 text-sm text-gray-600">
           Already have an account? <a href="/login" className="text-blue-600 hover:underline">Login</a>
         </p>
+
       </div>
     </div>
   );
