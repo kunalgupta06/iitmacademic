@@ -78,14 +78,14 @@ export default function Login() {
           {/* Login Button */}
           <button
             type="submit"
-            className="mt-6 px-6 py-1 border border-blue-600 bg-blue-100 text-blue-700 text-lg rounded-lg shadow-lg hover:bg-blue-200  transition w-1/4"
+            className="mt-2 px-6 py-1 border border-blue-600 bg-blue-100 text-blue-700 text-lg rounded-lg shadow-lg hover:bg-blue-200  transition w-1/4"
           >
             Login
           </button>
         </form>
 
         {/* Forgot Password */}
-        <p className="mt-3 text-sm text-gray-600">
+        <p className="mt-2 text-sm text-gray-600">
           <Link href="/forgot-password" className="text-red-500 hover:underline">Forgot Password?</Link>
         </p>
 
