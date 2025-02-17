@@ -5,21 +5,22 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar/page"; // Assuming your Navbar component is imported
 
 const subjects = [
-  { name: "Mathematics", color: "text-blue-600" },
-  { name: "Physics", color: "text-green-600" },
-  { name: "Chemistry", color: "text-red-600" },
-  { name: "Biology", color: "text-purple-600" },
-  { name: "Computer Science", color: "text-yellow-600" },
-  { name: "History", color: "text-pink-600" },
-  { name: "Geography", color: "text-teal-600" },
+  { name: "Software Engineering", color: "text-blue-600" },
+  { name: "Mathematics I", color: "text-green-600" },
+  { name: "Mathematics II", color: "text-red-600" },
+  { name: "Statistics I", color: "text-purple-600" },
+  { name: "SPG", color: "text-yellow-600" },
+  { name: "AI", color: "text-pink-600" },
+  { name: "Software Testing", color: "text-teal-600" },
   { name: "English", color: "text-indigo-600" },
   { name: "BDM", color: "text-indigo-600" },
-  { name: "Economics", color: "text-orange-600" },
-  { name: "Political Science", color: "text-cyan-600" },
-  { name: "Psychology", color: "text-green-700" },
-  { name: "Sociology", color: "text-blue-700" },
-  { name: "Environmental Science", color: "text-emerald-600" },
-  { name: "Philosophy", color: "text-yellow-700" }
+  { name: "Business Analytics", color: "text-orange-600" },
+  { name: "MLP", color: "text-cyan-600" },
+  { name: "MLT", color: "text-green-700" },
+  { name: "MAD I", color: "text-blue-700" },
+  { name: "MAD II", color: "text-emerald-600" },
+  { name: "Java", color: "text-yellow-700" },
+  { name: "DBMS", color: "text-green-500" }
 ];
 
 export default function ChooseSubject() {
