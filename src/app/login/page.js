@@ -74,17 +74,15 @@ export default function Login() {
               <option value="instructor">Instructor</option>
             </select>
           </div>
-
+          
+          {/* Login Button */}
+          <button
+            type="submit"
+            className="mt-6 px-6 py-1 border border-blue-600 bg-blue-100 text-blue-700 text-lg rounded-lg shadow-lg hover:bg-blue-200  transition w-1/4"
+          >
+            Login
+          </button>
         </form>
-
-        {/* Login Button */}
-        <button
-          type="submit"
-          className="mt-6 px-6 py-1 border border-blue-600 bg-blue-100 text-blue-700 text-lg rounded-lg shadow-lg hover:bg-blue-200  transition w-1/4"
-          onClick={handleSubmit}
-        >
-          Login
-        </button>
 
         {/* Forgot Password */}
         <p className="mt-3 text-sm text-gray-600">
@@ -99,3 +97,4 @@ export default function Login() {
     </div>
   );
 }
+
