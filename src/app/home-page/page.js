@@ -14,58 +14,79 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="h-screen w-screen flex overflow-hidden">
-      {/* Left Side - Full-Height Image */}
+    <div
+      className="h-screen w-screen flex items-center justify-center bg-cover bg-center relative overflow-hidden"
+      style={{ backgroundImage: "url('/homepage_bg.jpg')" }} // Background image
+    >
+      {/* Top Right - Our Mission & Team Button */}
+      <div className="absolute top-5 right-5">
+        <Link href="/about-us">
+          <button className="px-5 py-2 bg-blue-100 text-blue-700 text-lg font-semibold rounded-full shadow-lg border border-blue-800 hover:bg-white hover:text-blue-600 transition-all duration-300">
+            Our Mission & Team
+          </button>
+        </Link>
+      </div>
+
+      {/* Left Side - Animated Image (Shifted & Resized) */}
       <div
-        className={`w-3/5 h-full relative flex items-end transition-transform duration-1000 ease-out ${
+        className={`absolute left-10 top-1 w-[60%] h-[90%] transition-transform duration-1000 ease-out ${
           isVisible ? "translate-y-6 opacity-100" : "translate-y-16 opacity-0"
         }`}
       >
         <Image
-          src="/home.jpg"
+          src="/homepage_img.png"
           alt="AskIVA Home"
           layout="fill"
-          objectFit="cover"
-          className="absolute inset-0"
+          objectFit="contain"
         />
       </div>
 
-      {/* Right Side - Welcome Message (Shifted Closer to Image) */}
-      <div
-        className={`w-2/5 h-full flex flex-col justify-center items-center p-10 bg-white -ml-6 transition-opacity duration-1000 ease-in ${
-          isVisible ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <h1 className="text-5xl font-bold text-blue-700 text-center animate-fadeIn">
-          Welcome to AskIVA
+      {/* Right Side - Welcome Message & Buttons */}
+      <div className="absolute top-[27%] right-10 text-center">
+        {/* Rounded Border Effect */}
+        <h1 className="text-5xl font-bold animate-fadeIn text-blue-800 px-6 py-2 inline-block">
+          Welcome to AskIVA!
         </h1>
-        <p className="text-gray-600 mt-4 text-lg text-center">
-          Your IITM Academic Chatbot – Ask questions and get instant answers!
+
+        {/* Tagline */}
+        <p className="mt-4 text-lg text-blue-700">
+          Your AI-powered academic sidekick—ask away and get instant answers!
         </p>
 
-        {/* Styled Buttons */}
-        <div className="mt-6 flex space-x-4">
-          <Link href="/login">
-            <button className="px-6 py-3 border border-green-600 bg-green-100 text-green-700 text-lg rounded-lg shadow-lg hover:bg-green-200 transition-transform transform hover:scale-105 duration-300">
-              Login
-            </button>
-          </Link>
-          <Link href="/signup">
-            <button className="px-6 py-3 border border-blue-600 bg-blue-100 text-blue-700 text-lg rounded-lg shadow-lg hover:bg-blue-200 transition-transform transform hover:scale-105 duration-300">
-              Signup
-            </button>
-          </Link>
-        </div>
+        {/* Call to Action Text */}
+        <p className="mt-12 text-xl font-semibold text-white">
+          Got any questions? <span className="text-green-700 font-bold">Just AskIVA!</span>
+        </p>
 
-        {/* "Our Mission and Team" Button */}
-        <div className="mt-4">
-          <Link href="/about-us">
-            <button className="px-6 py-3 border border-orange-600 bg-orange-100 text-orange-700 text-lg rounded-lg shadow-lg hover:bg-gray-200 transition-transform transform hover:scale-105 duration-300">
-              Our Mission and Team
-            </button>
-          </Link>
+        {/* Buttons with Labels (Now Side by Side) */}
+        <div className="mt-5 flex flex-col items-center">
+          <div className="flex space-x-6">
+            <div className="flex flex-col items-center">
+              <p className="text-lg text-white font-semibold mb-3">🚀 Dive In</p>
+              <Link href="/login">
+                <button className="w-40 px-4 py-2 border-3 border-blue-600 bg-blue-100 text-blue-700 text-lg rounded-lg shadow-lg hover:bg-blue-700 hover:text-white transition-transform transform hover:scale-105 duration-300">
+                  Login
+                </button>
+              </Link>
+            </div>
+
+            <div className="flex flex-col items-center">
+              <p className="text-lg text-white font-semibold mb-3">📝 Register & Explore</p>
+              <Link href="/signup">
+                <button className="w-40 px-4 py-2 border-3 border-green-600 bg-green-100 text-green-700 text-lg rounded-lg shadow-lg hover:bg-green-700 hover:text-white transition-transform transform hover:scale-105 duration-300">
+                  Sign Up
+                </button>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 }
+
+
+
+
+
+

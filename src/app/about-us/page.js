@@ -14,7 +14,7 @@ const teamMembers = [
 
 export default function AboutUsPage() {
   return (
-    <div className="min-h-screen py-20 px-6 flex flex-col items-center">
+    <div className="min-h-screen py-20 px-6 flex flex-col items-center bg-white">
       {/* About Us Heading and Image */}
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 items-center gap-10 animate-fadeIn">
         {/* Left - About Us Heading & Project Overview */}
@@ -35,7 +35,7 @@ export default function AboutUsPage() {
           <p className="text-gray-700 mt-2 text-lg">
             AskIVA (IITM Virtual Assistant) is an AI-powered academic guidance
             agent designed to enhance the learning experience for students
-            enrolled in the IITM BS program.
+            enrolled in the IITM BS programme.
           </p>
           <p className="text-gray-700 mt-2 text-lg">
             Rather than directly providing answers, AskIVA nudges students
@@ -46,7 +46,7 @@ export default function AboutUsPage() {
         {/* Right - Image */}
         <div className="flex justify-center animate-fadeIn">
           <Image
-            src="/about-us.jpg"
+            src="/about_us.jpg"
             alt="About Us"
             width={600}
             height={500}
@@ -62,7 +62,7 @@ export default function AboutUsPage() {
         </h2>
         <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition duration-300 hover:scale-105">
-            <h3 className="text-xl font-semibold text-blue-700">
+            <h3 className="text-xl font-semibold text-blue-700 text-center">
               🎯 Personalized Academic Guidance
             </h3>
             <p className="text-gray-700 mt-2">
@@ -70,18 +70,18 @@ export default function AboutUsPage() {
             </p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition duration-300 hover:scale-105">
-            <h3 className="text-xl font-semibold text-blue-700">
+            <h3 className="text-xl font-semibold text-blue-700 text-center">
               📖 Study Strategy Support
             </h3>
-            <p className="text-gray-700 mt-2">
-              Encourages effective learning habits.
+            <p className="text-gray-700 mt-2 text-center">
+              Encourages effective learning habits among students.
             </p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition duration-300 hover:scale-105">
-            <h3 className="text-xl font-semibold text-blue-700">
+            <h3 className="text-xl font-semibold text-blue-700 text-center">
               🔗 Collaborative Learning
             </h3>
-            <p className="text-gray-700 mt-2">
+            <p className="text-gray-700 mt-2 text-center">
               Helps students find credible academic references.
             </p>
           </div>
