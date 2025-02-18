@@ -50,15 +50,15 @@ export default function ConceptsPage() {
         display: true,
         text: "Top 5 Most Asked Concepts",
         font: { size: 18 },
-        color: "#fff",
+        color: "#000",
       },
     },
     scales: {
       x: {
-        ticks: { color: "#fff" }, // White x-axis labels
+        ticks: { color: "#000" }, // White x-axis labels
       },
       y: {
-        ticks: { color: "#fff" }, // White y-axis labels
+        ticks: { color: "#000" }, // White y-axis labels
       },
     },
   };
@@ -75,8 +75,8 @@ export default function ConceptsPage() {
       </div>
 
       {/* Content Container */}
-      <div className="relative bg-black bg-opacity-70 p-8 rounded-lg shadow-lg w-full max-w-3xl">
-        <h2 className="text-3xl font-bold text-white text-center mb-6">
+      <div className="relative bg-white bg-opacity-70 p-8 rounded-lg shadow-lg w-full max-w-3xl">
+        <h2 className="text-3xl font-bold text-black text-center mb-6">
           Most Asked Concepts
         </h2>
         <div className="w-full">

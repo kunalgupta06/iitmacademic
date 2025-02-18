@@ -8,7 +8,7 @@ export default function Navbar({ backLink = "/" }) {
   const pathname = usePathname();
 
   // Hide Navbar on home page
-  if (pathname === "/home-page") {
+  if (pathname === "/home-page" || pathname === "/student-portal" || pathname === "/instructor-portal") {
     return null;
   }
 
