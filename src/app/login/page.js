@@ -89,10 +89,10 @@ export default function Login() {
           <Link href="/forgot-password" className="text-red-500 hover:underline">Forgot Password?</Link>
         </p>
 
-        {/* Redirect to Signup */}
+        {/* Redirect to Signup 
         <p className="mt-2 text-sm text-gray-600">
           Don't have an account? <Link href="/signup" className="text-blue-600 hover:underline">Sign Up</Link>
-        </p>
+        </p>*/}
       </div>
     </div>
   );
