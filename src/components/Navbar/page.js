@@ -36,7 +36,7 @@ export default function Navbar({ backLink = "/" }) {
           ⬅ Go Back
         </button>
 
-        {/* Hide "Profile" and "Logout" on certain pages */}
+        {/* Hide "Profile" and "Logout" on certain pages 
         {pathname !== "/forgot-password" &&
           pathname !== "/signup" &&
           pathname !== "/login" &&
@@ -47,7 +47,14 @@ export default function Navbar({ backLink = "/" }) {
                 👤 Profile
               </button>
             </Link>
-          )}
+          )} */}
+
+        {pathname !== "/about-us" && (
+          <Link href="/about-us">
+            <button className="px-5 py-2 rounded-full border border-gray-700 text-gray-900 font-semibold transition-all hover:bg-gray-900 hover:text-white shadow-md">
+              🎯 Our Mission & Team
+            </button>
+          </Link> )}
 
         {pathname !== "/forgot-password" && pathname !== "/signup" && pathname !== "/login" && pathname !== "/about-us" && (
           <Link href="/home-page">
