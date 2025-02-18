@@ -15,9 +15,9 @@ export default function Login() {
 
     // Redirect based on role
     if (formData.role === "student") {
-      window.location.href = "/student-dashboard";
+      window.location.href = "/student-portal";
     } else if (formData.role === "instructor") {
-      window.location.href = "/instructor-dashboard";
+      window.location.href = "/instructor-portal";
     }
   };
 

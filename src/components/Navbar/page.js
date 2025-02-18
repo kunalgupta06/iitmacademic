@@ -8,7 +8,7 @@ export default function Navbar({ backLink = "/" }) {
   const pathname = usePathname();
 
   // Hide Navbar on home page
-  if (pathname === "/home-page" || pathname === "/student-portal" || pathname === "/instructor-portal") {
+  if (pathname === "/home-page" || pathname === "/student-portal" || pathname === "/instructor-portal" || pathname === "/login") {
     return null;
   }
 
@@ -49,7 +49,7 @@ export default function Navbar({ backLink = "/" }) {
             </Link>
           )} */}
 
-        {pathname !== "/about-us" && (
+        {pathname !== "/about-us" && pathname !== "/login" && pathname !== "/forgot-password" &&(
           <Link href="/about-us">
             <button className="px-5 py-2 rounded-full border border-gray-700 text-gray-900 font-semibold transition-all hover:bg-gray-900 hover:text-white shadow-md">
               🎯 Our Mission & Team
@@ -57,7 +57,7 @@ export default function Navbar({ backLink = "/" }) {
           </Link> )}
 
         {pathname !== "/forgot-password" && pathname !== "/signup" && pathname !== "/login" && pathname !== "/about-us" && (
-          <Link href="/home-page">
+          <Link href="/login">
             <button className="px-5 py-2 rounded-full border border-red-500 text-red-600 font-semibold transition-all hover:bg-red-500 hover:text-white shadow-md flex items-center space-x-2">
               <span>⏻</span> <span>Logout</span>
             </button>

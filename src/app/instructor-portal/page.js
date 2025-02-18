@@ -1,6 +1,7 @@
 "use client";
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function InstructorPortal() {
@@ -56,25 +57,29 @@ export default function InstructorPortal() {
               <span className="font-semibold text-black">Lorem Ipsum</span>
               <span className="text-lg text-black">👤</span>
             </div>
-            {/* AskIVA Button */}
-            <div
-              className={`flex items-center space-x-1 cursor-pointer transition-all duration-300 ${isHovered ? 'transform scale-110' : ''}`}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
-              <span className="font-semibold text-black">AskIVA</span>
-              <Image src="/app_name.png" alt="AskIVA" width={20} height={20} />
-              {isHovered && (
-                <div className="absolute mt-16 p-2 bg-[#f8f8f8] text-black text-sm rounded-md border-2 border-black w-max max-w-xs">
-                  Got any Questions? Just AskIVA!
-                </div>
-              )}
-            </div>
+            {/* AskIVA Button with Link */}
+            <Link href="/instructor-dashboard">
+              <div
+                className={`flex items-center space-x-1 cursor-pointer transition-all duration-300 ${isHovered ? 'transform scale-110' : ''}`}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                <span className="font-semibold text-black">AskIVA</span>
+                <Image src="/app_name.png" alt="AskIVA" width={20} height={20} />
+                {isHovered && (
+                  <div className="absolute mt-16 p-2 bg-[#f8f8f8] text-black text-sm rounded-md border-2 border-black w-max max-w-xs">
+                    Got any Questions? Just AskIVA!
+                  </div>
+                )}
+              </div>
+            </Link>
             <div className="flex items-center space-x-2">
               <span className="font-semibold text-black">Latest Updates</span>
               <span className="text-lg text-black">🔔</span>
             </div>
-            <button className="bg-gray-100 border-2 border-black font-semibold text-black px-4 py-2 rounded-lg hover:bg-black hover:text-white">Sign Out</button>
+            <Link href="/login">
+              <button className="bg-gray-100 border-2 border-black font-semibold text-black px-4 py-2 rounded-lg hover:bg-black hover:text-white">Sign Out</button>
+            </Link>
           </div>
         </header>
 
