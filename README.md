@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ASKIVA - Academic Chatbot
+
+This directory contains the Next.js project for the Software Engineering project January 2025.
+
+## About ASKIVA
+ASKIVA is an AI-powered academic chatbot designed to assist students and instructors by providing instant answers to queries, subject-specific insights, and academic guidance.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+Ensure you have the following installed on your system:
+- Node.js (LTS version recommended)
+- npm or yarn
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Installation & Setup
+1. Clone this repository:
+   ```sh
+   git clone <repository-url>
+   cd <project-directory>
+   ```
+2. Install dependencies:
+   ```sh
+   npm install  # or yarn install
+   ```
+3. Start the development server:
+   ```sh
+   npm run dev  # or yarn dev
+   ```
+4. Open your browser and navigate to:
+   ```sh
+   http://localhost:3000
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Navigation Instructions
+- When the application opens on `localhost:3000`, add `/login` after `http://localhost:3000` in the URL to access the landing page.
+- On the login page, select your role: **Student** or **Instructor**.
+- Based on the selected role, you will be redirected to the **Student Dashboard** or **Instructor Dashboard**.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Project Structure
+- `src/app` - Contains the main pages and components.
+- `public/` - Stores static assets like images.
+- `styles/` - Contains global and component-specific styles.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Technologies Used
+- Next.js
+- React
+- Tailwind CSS
 
-## Learn More
+## License
+This project is for academic purposes.
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
