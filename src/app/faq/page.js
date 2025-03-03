@@ -55,7 +55,7 @@ export default function FAQPage() {
       <input
         type="text"
         placeholder={`Search ${selectedCategory} FAQs...`}
-        className="p-3 w-full max-w-md border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
+        className="p-3 w-full max-w-md border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 mb-4"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
@@ -68,8 +68,8 @@ export default function FAQPage() {
               key={category}
               className={`px-5 py-2 text-sm font-semibold cursor-pointer transition-all ${
                 selectedCategory === category
-                  ? " border-blue-600 text-blue-600"
-                  : "text-gray-700 hover:text-blue-600"
+                  ? " border-blue-600 text-[#A31D1D]"
+                  : "text-gray-700 hover:text-[#A31D1D]"
               }`}
               onClick={() => setSelectedCategory(category)}
             >
