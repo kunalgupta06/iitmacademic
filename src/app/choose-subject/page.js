@@ -5,22 +5,22 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar/page"; // Assuming your Navbar component is imported
 
 const subjects = [
-  { name: "Software Engineering", color: "text-blue-600" },
-  { name: "Mathematics I", color: "text-green-600" },
-  { name: "Mathematics II", color: "text-red-600" },
-  { name: "Statistics I", color: "text-purple-600" },
-  { name: "SPG", color: "text-yellow-600" },
-  { name: "AI", color: "text-pink-600" },
-  { name: "Software Testing", color: "text-teal-600" },
-  { name: "English", color: "text-indigo-600" },
-  { name: "BDM", color: "text-indigo-600" },
-  { name: "Business Analytics", color: "text-orange-600" },
-  { name: "MLP", color: "text-cyan-600" },
-  { name: "MLT", color: "text-green-700" },
-  { name: "MAD I", color: "text-blue-700" },
-  { name: "MAD II", color: "text-emerald-600" },
-  { name: "Java", color: "text-yellow-700" },
-  { name: "DBMS", color: "text-green-500" }
+  { name: "Software Engineering", color: "text-[#A31D1D]" },
+  { name: "Mathematics I", color: "text-[#A31D1D]" },
+  { name: "Mathematics II", color: "text-[#A31D1D]" },
+  { name: "Statistics I", color: "text-[#A31D1D]" },
+  { name: "SPG", color: "text-[#A31D1D]" },
+  { name: "AI", color: "text-[#A31D1D]" },
+  { name: "Software Testing", color: "text-[#A31D1D]" },
+  { name: "English", color: "text-[#A31D1D]" },
+  { name: "BDM", color: "text-[#A31D1D]" },
+  { name: "Business Analytics", color: "text-[#A31D1D]" },
+  { name: "MLP", color: "text-[#A31D1D]" },
+  { name: "MLT", color: "text-[#A31D1D]" },
+  { name: "MAD I", color: "text-[#A31D1D]" },
+  { name: "MAD II", color: "text-[#A31D1D]" },
+  { name: "Java", color: "text-[#A31D1D]" },
+  { name: "DBMS", color: "text-[#A31D1D]" }
 ];
 
 export default function ChooseSubject() {
@@ -46,29 +46,12 @@ export default function ChooseSubject() {
   };
 
   return (
-    <div
-      className="min-h-screen flex flex-col items-center relative text-white"
-      style={{ 
-        backgroundImage: "url('/choose_subject.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center 30%", // Adjusted upwards
-        backgroundRepeat: "no-repeat"
-      }}
-    >
-      {/* Navbar with Go Back to Dashboard 
-      <Navbar backLink="/Dashboard" />*/}
-
+    <div className="min-h-screen flex flex-col items-center relative text-white bg-gray-100">
       {/* Fixed Container to Prevent Shifting */}
-      <div className="flex flex-col items-center w-full max-w-6xl mt-14">
-        
-        {/* Subtitle with Image beside it */}
+      <div className="flex flex-col items-center w-full max-w-6xl mt-24 px-4">
+        {/* Subtitle */}
         <div className="flex items-center justify-center space-x-2 mb-0">
-          <img 
-            src="/choose_subject.png" 
-            alt="Choose Subject"
-            className="w-[20%] h-auto" // 12% width, auto height
-          />
-          <p className="text-2xl font-semibold drop-shadow-lg text-center whitespace-nowrap text-blue-600">
+          <p className="text-2xl font-semibold drop-shadow-lg text-center whitespace-nowrap text-[#A31D1D]">
             Select a subject to access the chatbot for subject-specific queries.
           </p>
         </div>
@@ -78,14 +61,14 @@ export default function ChooseSubject() {
           <input
             type="text"
             placeholder="Search for a subject..."
-            className="p-3 w-full border border-gray-300 rounded-lg shadow-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="p-3 w-full border border-gray-300 rounded-lg shadow-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
-        {/* Subject Grid with Fixed Height to Prevent Shifting */}
-        <div className="grid grid-cols-4 gap-6 w-full max-w-5xl min-h-[340px]">
+        {/* Subject Grid - Responsive */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-5xl min-h-[340px]">
           {displayedSubjects.length > 0 ? (
             displayedSubjects.map((subject, index) => (
               <Link
@@ -101,7 +84,7 @@ export default function ChooseSubject() {
               </Link>
             ))
           ) : (
-            <p className="text-gray-500 col-span-4 text-center">No subjects found.</p>
+            <p className="text-gray-500 col-span-full text-center">No subjects found.</p>
           )}
         </div>
 
@@ -109,7 +92,7 @@ export default function ChooseSubject() {
         {filteredSubjects.length > subjectsPerPage && (
           <button
             onClick={showNextSubjects}
-            className="text-lg font-semibold text-blue-700 mt-3 hover:underline transition"
+            className="text-lg font-semibold text-gray-700 mt-3 hover:underline transition"
           >
             More Subjects →
           </button>
@@ -118,11 +101,3 @@ export default function ChooseSubject() {
     </div>
   );
 }
-
-
-
-
-
-
-
-
