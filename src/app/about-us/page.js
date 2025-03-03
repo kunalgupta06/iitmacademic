@@ -19,14 +19,14 @@ export default function AboutUsPage() {
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 items-center gap-10 animate-fadeIn">
         {/* Left - About Us Heading & Project Overview */}
         <div>
-          <h1 className="text-5xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
+          <h1 className="text-5xl font-extrabold bg-gradient-to-r from-[#A31D1D] to-[#A31D1D] text-transparent bg-clip-text">
             About Us
           </h1>
           <p className="text-gray-700 mt-2 text-lg">
             Learn more about AskIVA and the team behind it!
           </p>
 
-          <h2 className="mt-10 text-3xl font-bold bg-gradient-to-r from-blue-500 to-indigo-500 text-transparent bg-clip-text">
+          <h2 className="mt-10 text-3xl font-bold bg-gradient-to-r from-[#A31D1D] to-[#A31D1D] text-transparent bg-clip-text">
             Project Overview
           </h2>
           <p className="text-gray-800 mt-4 text-lg font-semibold">
@@ -46,23 +46,23 @@ export default function AboutUsPage() {
         {/* Right - Image */}
         <div className="flex justify-center animate-fadeIn">
           <Image
-            src="/about_us.jpg"
+            src="/about_us.png"
             alt="About Us"
-            width={600}
-            height={500}
+            width={1000}
+            height={1000}
             className="transition-transform duration-300 hover:scale-105"
           />
         </div>
       </div>
 
       {/* Key Features Section */}
-      <div className="mt-16 max-w-6xl w-full bg-blue-50 p-8 rounded-lg shadow-lg animate-fadeIn">
-        <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-transparent bg-clip-text">
+      <div className="mt-16 max-w-6xl w-full bg-red-50 p-8 rounded-lg shadow-lg animate-fadeIn">
+        <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-[#A31D1D] to-[#A31D1D] text-transparent bg-clip-text">
           Key Features
         </h2>
         <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition duration-300 hover:scale-105">
-            <h3 className="text-xl font-semibold text-blue-700 text-center">
+            <h3 className="text-xl font-semibold text-[#A31D1D] text-center">
               🎯 Personalized Academic Guidance
             </h3>
             <p className="text-gray-700 mt-2">
@@ -70,7 +70,7 @@ export default function AboutUsPage() {
             </p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition duration-300 hover:scale-105">
-            <h3 className="text-xl font-semibold text-blue-700 text-center">
+            <h3 className="text-xl font-semibold text-[#A31D1D] text-center">
               📖 Study Strategy Support
             </h3>
             <p className="text-gray-700 mt-2 text-center">
@@ -78,7 +78,7 @@ export default function AboutUsPage() {
             </p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow hover:shadow-xl transform transition duration-300 hover:scale-105">
-            <h3 className="text-xl font-semibold text-blue-700 text-center">
+            <h3 className="text-xl font-semibold text-[#A31D1D] text-center">
               🔗 Collaborative Learning
             </h3>
             <p className="text-gray-700 mt-2 text-center">
@@ -90,7 +90,7 @@ export default function AboutUsPage() {
 
       {/* Team Section with Grid Design */}
       <div className="mt-16 max-w-6xl w-full animate-fadeIn">
-        <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-transparent bg-clip-text">
+        <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-[#A31D1D] to-[#A31D1D] text-transparent bg-clip-text">
           Meet Our Team
         </h2>
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -99,7 +99,7 @@ export default function AboutUsPage() {
               key={index}
               className="bg-white p-6 rounded-lg shadow-md text-center border border-gray-200 hover:shadow-lg transform transition duration-300 hover:scale-105"
             >
-              <h3 className="text-2xl font-semibold text-blue-700">
+              <h3 className="text-2xl font-semibold text-[#A31D1D]">
                 {member.name}
               </h3>
               <p className="text-gray-600 mt-2">{member.email}</p>
