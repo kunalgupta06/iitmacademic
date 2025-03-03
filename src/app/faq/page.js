@@ -1,80 +1,103 @@
 "use client";
 
 import { useState } from "react";
-import Navbar from "@/components/Navbar/page"; // Import Navbar
 
-const faqs = [
-  { question: "How do I reset my password?", answer: "Click 'Forgot password?' on the 'Login' page." },
-  { question: "Can I change my role after signing up?", answer: "No, roles once selected while registering/signing up cannot be changed." },
-  { question: "What subjects are available?", answer: "Software Engineering, English, Statistics, and more!" },
-  { question: "Is there a mobile app available?", answer: "Not yet, but we are working on it!" },
-  { question: "How do I contact support?", answer: "Email any team member on the 'About Us'page." },
-  { question: "Can I suggest new features?", answer: "Yes! Email any team member with your feedback and/or suggestions on 'About Us' page." },
-  { question: "Do you offer certificates?", answer: "Yes, certificates are awarded for completed courses." },
-];
+const faqCategories = {
+  General: [
+    { question: "How can I access my courses?", answer: "You can access your courses from the student dashboard under the 'Course Content' section." },
+    { question: "Is there a mobile app for this platform?", answer: "Currently, there is no mobile app, but the website is fully responsive." },
+    { question: "How can I access my courses?", answer: "You can access your courses from the student dashboard under the 'Course Content' section." },
+    { question: "Is there a mobile app for this platform?", answer: "Currently, there is no mobile app, but the website is fully responsive." },
+    { question: "How can I access my courses?", answer: "You can access your courses from the student dashboard under the 'Course Content' section." },
+    { question: "Is there a mobile app for this platform?", answer: "Currently, there is no mobile app, but the website is fully responsive." },
+  ],
+  Technical: [
+    { question: "What browsers are supported?", answer: "We recommend using Chrome, Firefox, or Edge for the best experience." },
+    { question: "Why is my video not playing?", answer: "Ensure you have a stable internet connection and try refreshing the page." },
+    { question: "What browsers are supported?", answer: "We recommend using Chrome, Firefox, or Edge for the best experience." },
+    { question: "Why is my video not playing?", answer: "Ensure you have a stable internet connection and try refreshing the page." },
+    { question: "What browsers are supported?", answer: "We recommend using Chrome, Firefox, or Edge for the best experience." },
+    { question: "Why is my video not playing?", answer: "Ensure you have a stable internet connection and try refreshing the page." },
+  ],
+  Courses: [
+    { question: "What is the course duration?", answer: "Each course lasts approximately 8 weeks with weekly modules and assignments." },
+    { question: "Can I rewatch lectures?", answer: "Yes! All recorded lectures are available in the course content section." },
+    { question: "What is the course duration?", answer: "Each course lasts approximately 8 weeks with weekly modules and assignments." },
+    { question: "Can I rewatch lectures?", answer: "Yes! All recorded lectures are available in the course content section." },
+    { question: "What is the course duration?", answer: "Each course lasts approximately 8 weeks with weekly modules and assignments." },
+    { question: "Can I rewatch lectures?", answer: "Yes! All recorded lectures are available in the course content section." },
+  ],
+  Faculty: [
+    { question: "How do I contact my instructor?", answer: "You can message your instructor through the 'Instructor Portal' or email them directly." },
+    { question: "How do I contact my instructor?", answer: "You can message your instructor through the 'Instructor Portal' or email them directly." },
+    { question: "How do I contact my instructor?", answer: "You can message your instructor through the 'Instructor Portal' or email them directly." },
+  ],
+};
 
-export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState(null);
+export default function FAQPage() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("General");
+  const [expandedIndex, setExpandedIndex] = useState(null);
 
-  const toggleFAQ = (index) => setOpenIndex(openIndex === index ? null : index);
+  // Get FAQs for the selected category
+  const faqs = faqCategories[selectedCategory];
 
-  const filteredFAQs = faqs.filter(
-    (faq) =>
-      faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
+  // Filter FAQs based on search
+  const filteredFAQs = faqs.filter((faq) =>
+    faq.question.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
-    <div 
-      className="w-full h-screen flex flex-col items-center justify-start overflow-hidden"
-      style={{ backgroundColor: "#00d0ea" }} 
-    >
-      {/* Navbar with Go Back to Dashboard 
-      <Navbar backLink="/Dashboard" /> */}
+    <div className="min-h-screen p-6 bg-gray-100 flex flex-col items-center">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Frequently Asked Questions</h1>
 
-      {/* Centered FAQ Image (Heading) */}
-      <img 
-        src="/faq_img.jpg" 
-        alt="FAQ Heading" 
-        className="w-[20%] mb-2 mt-8" 
+      {/* Search Bar */}
+      <input
+        type="text"
+        placeholder={`Search ${selectedCategory} FAQs...`}
+        className="p-3 w-full max-w-md border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
       />
 
-      {/* Transparent FAQ Section */}
-      <div className="w-[55%] p-6 rounded-lg shadow-lg bg-white/10 backdrop-blur-md">
-        {/* Search Bar */}
-        <input
-          type="text"
-          placeholder="Search FAQs..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white text-black shadow-md mb-4"
-        />
-
-        {/* FAQ List */}
-        <div className="overflow-y-auto max-h-[60vh]">
-          {filteredFAQs.length > 0 ? (
-            filteredFAQs.map((faq, index) => (
-              <div key={index} className="bg-white shadow-md rounded-lg p-4 mb-4 transition duration-300 hover:shadow-lg">
-                <button
-                  className="flex justify-between items-center w-full text-left text-lg font-medium text-black"
-                  onClick={() => toggleFAQ(index)}
-                >
-                  {faq.question}
-                  <span className="text-blue-600">{openIndex === index ? "−" : "+"}</span>
-                </button>
-                {openIndex === index && <p className="mt-2 text-black">{faq.answer}</p>}
-              </div>
-            ))
-          ) : (
-            <p className="text-white text-center">No FAQs match your search.</p>
-          )}
+      {/* Horizontal Category Bar */}
+      <div className="w-full max-w-2xl overflow-x-auto scrollbar-hide">
+        <div className="flex space-x-4 pb-2 border-b-2 border-gray-300">
+          {Object.keys(faqCategories).map((category) => (
+            <div
+              key={category}
+              className={`px-5 py-2 text-sm font-semibold cursor-pointer transition-all ${
+                selectedCategory === category
+                  ? " border-blue-600 text-blue-600"
+                  : "text-gray-700 hover:text-blue-600"
+              }`}
+              onClick={() => setSelectedCategory(category)}
+            >
+              {category}
+            </div>
+          ))}
         </div>
+      </div>
+
+      {/* FAQ List */}
+      <div className="w-full max-w-2xl bg-white p-6 rounded-lg shadow-lg mt-4">
+        {filteredFAQs.length > 0 ? (
+          filteredFAQs.map((faq, index) => (
+            <div key={index} className="mb-4 border-b border-gray-200 pb-4">
+              <button
+                className="w-full text-left text-lg font-semibold text-gray-800 flex justify-between items-center"
+                onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
+              >
+                {faq.question}
+                <span>{expandedIndex === index ? "▲" : "▼"}</span>
+              </button>
+              {expandedIndex === index && <p className="mt-2 text-gray-600">{faq.answer}</p>}
+            </div>
+          ))
+        ) : (
+          <p className="text-gray-600 text-center">No FAQs found.</p>
+        )}
       </div>
     </div>
   );
 }
-
-
-
-
