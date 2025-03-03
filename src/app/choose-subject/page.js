@@ -46,9 +46,9 @@ export default function ChooseSubject() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center relative text-white bg-gray-100"> {/* Added bg-gray-100 */}
+    <div className="min-h-screen flex flex-col items-center relative text-white bg-gray-100">
       {/* Fixed Container to Prevent Shifting */}
-      <div className="flex flex-col items-center w-full max-w-6xl mt-24">
+      <div className="flex flex-col items-center w-full max-w-6xl mt-24 px-4">
         {/* Subtitle */}
         <div className="flex items-center justify-center space-x-2 mb-0">
           <p className="text-2xl font-semibold drop-shadow-lg text-center whitespace-nowrap text-[#A31D1D]">
@@ -61,14 +61,14 @@ export default function ChooseSubject() {
           <input
             type="text"
             placeholder="Search for a subject..."
-            className="p-3 w-full border border-gray-300 rounded-lg shadow-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="p-3 w-full border border-gray-300 rounded-lg shadow-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
-        {/* Subject Grid with Fixed Height to Prevent Shifting */}
-        <div className="grid grid-cols-4 gap-6 w-full max-w-5xl min-h-[340px]">
+        {/* Subject Grid - Responsive */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-5xl min-h-[340px]">
           {displayedSubjects.length > 0 ? (
             displayedSubjects.map((subject, index) => (
               <Link
@@ -84,7 +84,7 @@ export default function ChooseSubject() {
               </Link>
             ))
           ) : (
-            <p className="text-gray-500 col-span-4 text-center">No subjects found.</p>
+            <p className="text-gray-500 col-span-full text-center">No subjects found.</p>
           )}
         </div>
 
