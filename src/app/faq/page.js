@@ -49,7 +49,7 @@ export default function FAQPage() {
 
   return (
     <div className="min-h-screen p-6 bg-gray-100 flex flex-col items-center">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Frequently Asked Questions</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-6 mt-20">Frequently Asked Questions</h1>
 
       {/* Search Bar */}
       <input

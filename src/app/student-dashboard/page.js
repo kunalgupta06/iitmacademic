@@ -1,56 +1,54 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import Navbar from "@/components/Navbar/page"; // Import Navbar
 
 export default function Dashboard() {
   return (
-    <>
-      {/*<Navbar backLink="/login" /> {/* Set Go Back to Login */}
-      <div className="absolute inset-0 -top-9">
-        {/* Background Image */}
-        <Image src={"/dashboard_bg.jpg"} alt="Books Background" layout="fill" objectFit="cover" quality={100} className="absolute"/>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
+      {/* Heading */}
+      <h1 className="text-5xl font-bold text-blue-900 drop-shadow-lg text-center">
+        AskIVA welcomes you to your dashboard!
+      </h1>
+      <p className="text-gray-700 text-lg mt-4 text-center">
+        Select from below what you'd like help with:
+      </p>
 
-        {/* Overlaying Content */}
-        <div className="absolute top-24 w-full text-center">
-          <h1 className="text-4xl font-bold text-blue-900 drop-shadow-lg">
-          AskIVA welcomes you to your desk!
-          </h1>
-          <p className="text-gray-600 text-lg mt-2 drop-shadow-lg">
-            Click on the book titles below— 
-            <strong>FAQs</strong> for answers to frequently asked questions, 
-            <strong> Subject-Specific Queries</strong> to get help with subject-related doubts and explanations, 
-            and <strong>Programme Guidelines</strong> for doubts related to rules, courses, and policies of the programme.
+      {/* Cards Container */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 w-full max-w-3xl">
+        {/* Card 1 */}
+        <Link
+          href="/choose-subject"
+          className="bg-[#a31d1d] text-white p-6 rounded-lg shadow-lg text-center transform transition-transform hover:scale-105"
+        >
+          <h2 className="text-2xl font-bold">Subject-Related Queries</h2>
+          <p className="text-sm mt-4">
+            Get help with subject-related doubts and explanations
           </p>
-        </div>
+        </Link>
 
-        {/* Clickable Book Titles */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Link
-            href="/faq"
-            className="absolute text-white text-lg font-bold drop-shadow-md transition-transform transform hover:scale-110 hover:text-yellow-300"
-            style={{ top: "59%", left: "41%" }}
-          >
-            FAQs
-          </Link>
-          
-          <Link 
-            href="/choose-subject" 
-            className="absolute text-white text-lg font-bold drop-shadow-md transition-transform transform hover:scale-110 hover:text-blue-400" 
-            style={{ top: "67%", left: "35%" }}>
-            Subject-Specific Queries
-          </Link>
-
-          <Link 
-            href="/programme-guideline" 
-            className="absolute text-white text-lg font-bold drop-shadow-md text-center transition-transform transform hover:scale-110 hover:text-purple-400" 
-            style={{ top: "77%", left: "33%" }}>
-            Programme <br /> Guidelines
-          </Link>
-        </div>
+        {/* Card 2 */}
+        <Link
+          href="/programme-guideline"
+          className="bg-[#a31d1d] text-white p-6 rounded-lg shadow-lg text-center transform transition-transform hover:scale-105"
+        >
+          <h2 className="text-2xl font-bold">Programme Guidelines</h2>
+          <p className="text-sm mt-4">
+            Get help for doubts related to rules, courses, and policies of the programme
+          </p>
+        </Link>
       </div>
-    </>
+
+      {/* Card 3 - Centered Below */}
+      <div className="mt-6 w-full max-w-md">
+        <Link
+          href="/faq"
+          className="bg-[#a31d1d] text-white p-6 rounded-lg shadow-lg text-center block transform transition-transform hover:scale-105"
+        >
+          <h2 className="text-2xl font-bold">FAQs</h2>
+          <p className="text-sm mt-4">Frequently asked questions</p>
+        </Link>
+      </div>
+    </div>
   );
 }
 

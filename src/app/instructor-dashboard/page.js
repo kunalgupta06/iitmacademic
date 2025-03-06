@@ -4,59 +4,45 @@ import Link from "next/link";
 
 export default function AnalysisPage() {
   return (
-    <div
-      className="min-h-screen flex flex-col items-center relative"
-      style={{ 
-        backgroundImage: "url('/instructor.png')",
-        backgroundSize: "98% 125%",  // Adjust width & height
-        backgroundPosition: "center 44%",  // Adjust top & left
-        backgroundRepeat: "no-repeat",
-        backgroundColor: "white" // Fallback color
-      }}
-      
-    >
-      {/* Dark Overlay for better text visibility */}
-      <div className="absolute inset-0"></div>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
+      {/* Heading (Centered) */}
+      <h1 className="text-4xl md:text-5xl font-bold text-blue-900 drop-shadow-lg text-center">
+        AskIVA welcomes you to your dashboard!
+      </h1>
+      <p className="text-gray-700 text-lg mt-4 text-center">
+        What would you like to get detailed insights for:
+      </p>
 
-      {/* Content */}
-      <div 
-        className="relative text-black p-6"
-        style={{
-          top: "70%",   // Adjust vertical position (from top)
-          left: "45%",  // Shift content towards the right
-          transform: "translate(-63%, 25%)" // Center content at the given position
-          }}>
-        <h2 className="text-3xl font-bold mb-1">Hey! Welcome to your Dashboard!</h2>
-        <p className="text-lg text-center mb-4">What would you like to explore detailed insights for?</p>
+      {/* Buttons Grid (Responsive) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+        <Link href="/most-asked-ques">
+          <button className="flex items-center justify-center w-full sm:w-72 px-6 py-4 sm:px-8 sm:py-5 text-lg sm:text-xl bg-[#a31d1d] hover:bg-[#811515] text-white font-semibold rounded-lg transition">
+            📊 Most Asked Questions
+          </button>
+        </Link>
 
-        {/* Buttons */}
-        <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
-          <Link href="/most-asked-ques">
-            <button className="w-full px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition">
-              Most Asked Questions
-            </button>
-          </Link>
+        <Link href="/most-asked-concepts">
+          <button className="flex items-center justify-center w-full sm:w-72 px-6 py-4 sm:px-8 sm:py-5 text-lg sm:text-xl bg-[#a31d1d] hover:bg-[#811515] text-white font-semibold rounded-lg transition">
+            📈 Most Asked Concepts
+          </button>
+        </Link>
 
-          <Link href="/most-asked-concepts">
-            <button className="w-full px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition">
-              Most Asked <br></br>Concepts
-            </button>
-          </Link>
+        <Link href="/course-performance">
+          <button className="flex items-center justify-center w-full sm:w-72 px-6 py-4 sm:px-8 sm:py-5 text-lg sm:text-xl bg-[#a31d1d] hover:bg-[#811515] text-white font-semibold rounded-lg transition">
+            📉 Course Performance
+          </button>
+        </Link>
 
-          <Link href="/course-performance">
-            <button className="w-full px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition">
-              Course Performance
-            </button>
-          </Link>
-
-          <Link href="/study-patterns">
-            <button className="w-full px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition">
-              Study Patterns
-            </button>
-          </Link>
-        </div>
+        <Link href="/study-patterns">
+          <button className="flex items-center justify-center w-full sm:w-72 px-6 py-4 sm:px-8 sm:py-5 text-lg sm:text-xl bg-[#a31d1d] hover:bg-[#811515] text-white font-semibold rounded-lg transition">
+            📌 Study Patterns of Students
+          </button>
+        </Link>
       </div>
     </div>
   );
 }
+
+
+
 

@@ -22,7 +22,7 @@ export default function Login() {
   };
 
   return (
-    <div className="relative w-full h-screen flex items-center justify-center ">
+    <div className="relative w-full h-screen flex items-center justify-center">
       {/* Background Image (Same as Signup Page) */}
       <div className="absolute inset-0">
         <img src="/signup_bg.jpg" alt="Login Background" className="w-full h-full object-cover" />
@@ -31,12 +31,12 @@ export default function Login() {
       {/* Login Form Section */}
       <div className="relative w-full max-w-4xl p-8 flex flex-col items-center mt-60">
         {/* Cool Heading */}
-        <h1 className="text-4xl font-bold text-gray-800 mb-10">Welcome Back!</h1>
+        <h1 className="text-4xl font-bold text-gray-800 mb-10 text-center">Welcome Back!</h1>
 
         {/* Form Fields - Horizontally Aligned */}
         <form className="w-full flex flex-wrap justify-center gap-6 items-center" onSubmit={handleSubmit}>
           {/* Email */}
-          <div className="w-1/4">
+          <div className="w-full sm:w-1/2 md:w-1/4">
             <input
               type="email"
               name="email"
@@ -48,7 +48,7 @@ export default function Login() {
           </div>
 
           {/* Password */}
-          <div className="w-1/4">
+          <div className="w-full sm:w-1/2 md:w-1/4">
             <input
               type="password"
               name="password"
@@ -60,7 +60,7 @@ export default function Login() {
           </div>
 
           {/* Role Selection */}
-          <div className="w-1/4">
+          <div className="w-full sm:w-1/2 md:w-1/4">
             <select
               name="role"
               value={formData.role}
@@ -76,23 +76,20 @@ export default function Login() {
           </div>
           
           {/* Login Button */}
-          <button
-            type="submit"
-            className="mt-2 px-6 py-1 border border-blue-600 bg-blue-100 text-blue-700 text-lg rounded-lg shadow-lg hover:bg-blue-200  transition w-1/4"
-          >
-            Login
-          </button>
+          <div className="w-full sm:w-1/2 md:w-1/4 flex justify-center">
+            <button
+              type="submit"
+              className="mt-2 px-6 py-1 border border-blue-600 bg-blue-100 text-blue-700 text-lg rounded-lg shadow-lg hover:bg-blue-200 transition w-full"
+            >
+              Login
+            </button>
+          </div>
         </form>
 
         {/* Forgot Password */}
-        <p className="mt-2 text-sm text-gray-600">
+        <p className="mt-2 text-sm text-gray-600 text-center">
           <Link href="/forgot-password" className="text-red-500 hover:underline">Forgot Password?</Link>
         </p>
-
-        {/* Redirect to Signup 
-        <p className="mt-2 text-sm text-gray-600">
-          Don't have an account? <Link href="/signup" className="text-blue-600 hover:underline">Sign Up</Link>
-        </p>*/}
       </div>
     </div>
   );

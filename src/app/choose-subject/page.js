@@ -51,13 +51,13 @@ export default function ChooseSubject() {
       <div className="flex flex-col items-center w-full max-w-6xl mt-24 px-4">
         {/* Subtitle */}
         <div className="flex items-center justify-center space-x-2 mb-0">
-          <p className="text-2xl font-semibold drop-shadow-lg text-center whitespace-nowrap text-[#A31D1D]">
+        <p className="text-lg sm:text-xl md:text-2xl mt-4 font-semibold drop-shadow-lg text-center text-[#A31D1D] px-4">
             Select a subject to access the chatbot for subject-specific queries.
           </p>
         </div>
 
         {/* Search Bar */}
-        <div className="w-full max-w-md mb-5">
+        <div className="w-full max-w-md mt-6 mb-5">
           <input
             type="text"
             placeholder="Search for a subject..."

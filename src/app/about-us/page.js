@@ -14,7 +14,7 @@ const teamMembers = [
 
 export default function AboutUsPage() {
   return (
-    <div className="min-h-screen py-20 px-6 flex flex-col items-center bg-white">
+    <div className="min-h-screen py-20 px-6 flex flex-col items-center bg-white mt-6">
       {/* About Us Heading and Image */}
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 items-center gap-10 animate-fadeIn">
         {/* Left - About Us Heading & Project Overview */}
