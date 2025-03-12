@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import Navbar from "@/components/Navbar/page"; // Assuming your Navbar component is imported
+import Navbar from "../../components/Navbar/page"; // Assuming your Navbar component is imported
 
 const subjects = [
   { name: "Software Engineering", color: "text-[#A31D1D]" },

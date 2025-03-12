@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { sendProgrammeGuidelineQuery, sendSubjectQuery } from "@/services/chatService";
+import { sendProgrammeGuidelineQuery, sendSubjectQuery } from "../../services/chatService";
 
 export default function ChatBox({ apiType }) {
   const [messages, setMessages] = useState([]);

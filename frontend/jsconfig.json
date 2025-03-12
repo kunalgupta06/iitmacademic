@@ -1,0 +1,18 @@
+//{
+//  "compilerOptions": {
+//    "paths": {
+//      "@/*": ["frontend/src/*"]
+//    }
+//  }
+//}
+
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    }
+  }
+}
+
+
