@@ -24,8 +24,8 @@ Ensure you have the following installed:
 
 ### **1. Clone the Repository**
 ```sh
-git clone <repository-url>
-cd <project-directory>
+git clone https://github.com/PaleshaRiya/soft-engg-project-jan-2025-se-Jan-30.git
+cd soft-engg-project-jan-2025-se-Jan-30
 ```
 
 ### **2. Set Up the Backend**
@@ -73,26 +73,26 @@ cd <project-directory>
 ## Project Structure
 ```
 project-root/
-│── backend/            # Flask-based backend
-│   ├── app.py          # Main backend application
-│   ├── models.py       # Database models
-│   ├── routes/         # API endpoints
-│   ├── config.py       # Configuration files
-│   ├── .env            # Environment variables
-│── frontend/           # Next.js frontend
-│   ├── src/            # React components and pages
-│   ├── public/         # Static assets
-│   ├── styles/         # Tailwind CSS styles
-│── requirements.txt    # Backend dependencies
-│── README.md           # Project documentation
+│── backend/                # Flask-based backend
+│   ├── app.py              # Main backend application
+│   ├── models.py           # Database models
+│   ├── routes/             # API endpoints
+│   ├── config.py           # Configuration files
+│   │── requirements.txt    # Backend dependencies
+│   ├── .env                # Environment variables
+│── frontend/               # Next.js frontend
+│   ├── src/                # React components and pages
+│   ├── public/             # Static assets
+│   ├── styles/             # Tailwind CSS styles
+│── README.md               # Project documentation
 ```
 
 ---
 
 ## Usage Instructions
-1. Open `http://localhost:3000` to access the chatbot.
-2. Navigate to `/login` to sign in as a **Student** or **Instructor**.
-3. The chatbot is available inside the respective dashboards.
+1. Open `http://localhost:3000` to view the **Home Page**.
+2. Click on the **Login** button on the Home Page or navigate directly to `/login` to sign in as a **Student** or **Instructor**.
+3. After logging in, access the **Chatbot** through the respective portals for Students and Instructors.
 
 ---
 
