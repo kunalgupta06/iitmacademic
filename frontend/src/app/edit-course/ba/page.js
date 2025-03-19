@@ -41,7 +41,7 @@ export default function EditCourse({ courseName }) {
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
-      <h1 className="text-2xl text-black font-bold mt-16 mb-6">Edit {courseName} Course</h1>
+      <h1 className="text-2xl text-black font-bold mt-16 mb-6">Edit BA Course</h1>
 
       {courseData.weeks.map((week, weekIndex) => (
         <div key={weekIndex} className="mb-6">

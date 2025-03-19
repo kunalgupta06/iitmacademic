@@ -2,39 +2,71 @@
 
 import { useState, useEffect } from "react";
 import { LinearProgress } from "@mui/material";
-import { FaCheckCircle, FaClock, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaCheckCircle, FaClipboardList, FaClock, FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const CourseContentPage = ({ courseName }) => {
   const [expandedWeek, setExpandedWeek] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [courseData, setCourseData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedAssignment, setSelectedAssignment] = useState(null);
+  const [userAnswers, setUserAnswers] = useState({});
+
+  // Dummy Assignments
+  const practiceAssignment = {
+    title: "Practice Assignment",
+    questions: [
+      {
+        question: "What does HTML stand for?",
+        options: ["Hyper Text Markup Language", "High Tech Modern Language", "Hyperlink Text Makeup Language", "None of the above"],
+        correctAnswer: 0,
+      },
+      {
+        question: "What is the capital of France?",
+        options: ["Paris", "London", "Berlin", "Rome"],
+        correctAnswer: 0,
+      },
+    ],
+  };
+
+  const gradedAssignment = {
+    title: "Graded Assignment",
+    questions: [
+      {
+        question: "Which programming language is used for web development?",
+        options: ["Python", "C++", "JavaScript", "Java"],
+        correctAnswer: 2,
+      },
+      {
+        question: "Which is the largest ocean on Earth?",
+        options: ["Atlantic", "Indian", "Pacific", "Arctic"],
+        correctAnswer: 2,
+      },
+    ],
+  };
 
   useEffect(() => {
-    // Fetch data from your API
     const fetchCourseData = async () => {
       try {
         const response = await fetch("/api/courses/se");
         const data = await response.json();
 
-        // Add progress/completion fields manually
         const enhancedData = {
           ...data,
-          progress: 50, // Overall progress
+          progress: 50,
           weeks: data.weeks.map((week) => ({
             ...week,
-            progress: 100, // Week progress
+            progress: 100,
             lectures: week.lectures.map((lecture) => ({
               ...lecture,
-              completed: true, // Mark all lectures complete initially
-              duration: "10:00", // Dummy duration
+              completed: true,
+              duration: "10:00",
             })),
           })),
         };
 
         setCourseData(enhancedData);
 
-        // Set default video
         if (enhancedData.weeks.length > 0 && enhancedData.weeks[0].lectures.length > 0) {
           setSelectedVideo({
             title: enhancedData.weeks[0].lectures[0].title,
@@ -57,6 +89,25 @@ const CourseContentPage = ({ courseName }) => {
 
   const changeVideo = (title, url) => {
     setSelectedVideo({ title, url });
+    setSelectedAssignment(null);
+  };
+
+  const handleAssignmentClick = (assignmentType) => {
+    if (assignmentType === "practice") {
+      setSelectedAssignment(practiceAssignment);
+    } else if (assignmentType === "graded") {
+      setSelectedAssignment(gradedAssignment);
+    }
+    setUserAnswers({});
+  };
+
+  const handleOptionChange = (questionIndex, optionIndex) => {
+    setUserAnswers({ ...userAnswers, [questionIndex]: optionIndex });
+  };
+
+  const handleSubmit = () => {
+    console.log("User Answers:", userAnswers);
+    alert("Assignment Submitted!");
   };
 
   if (loading) return <div className="text-center mt-32 text-xl">Loading...</div>;
@@ -95,7 +146,6 @@ const CourseContentPage = ({ courseName }) => {
 
               {expandedWeek === index && (
                 <div className="mt-2">
-
                   {/* Lectures */}
                   {week.lectures.map((lecture, i) => (
                     <div
@@ -116,16 +166,14 @@ const CourseContentPage = ({ courseName }) => {
                   {/* Assignments */}
                   <div className="mt-4">
                     <h4 className="text-black font-semibold">Assignments:</h4>
-                    {week.assignments.length > 0 ? (
-                      week.assignments.map((assignment, idx) => (
-                        <div key={idx} className="flex items-center p-2">
-                          <FaCheckCircle className="text-green-500 mr-2" />
-                          <span className="text-gray-700">{assignment}</span>
-                        </div>
-                      ))
-                    ) : (
-                      <p className="text-gray-500 italic p-2">No assignments</p>
-                    )}
+                    <div className="flex items-center p-2 cursor-pointer" onClick={() => handleAssignmentClick("practice")}>
+                    <FaClipboardList className="text-blue-500 mr-2" />
+                      <span className="text-gray-700">Practice Assignment</span>
+                    </div>
+                    <div className="flex items-center p-2 cursor-pointer" onClick={() => handleAssignmentClick("graded")}>
+                    <FaClipboardList className="text-blue-500 mr-2" />
+                      <span className="text-gray-700">Graded Assignment</span>
+                    </div>
                   </div>
 
                 </div>
@@ -134,9 +182,9 @@ const CourseContentPage = ({ courseName }) => {
           ))}
         </div>
 
-        {/* Video Player */}
+        {/* Video Player / Assignment Panel */}
         <div className="w-full lg:w-2/3 p-6">
-          {selectedVideo && (
+          {selectedVideo && !selectedAssignment && (
             <>
               <h2 className="text-2xl text-black font-bold mb-4">Now Playing: {selectedVideo.title}</h2>
               <div className="relative w-full h-64 lg:h-96 bg-black rounded-lg overflow-hidden">
@@ -149,6 +197,33 @@ const CourseContentPage = ({ courseName }) => {
               </div>
             </>
           )}
+
+          {selectedAssignment && (
+            <div className="bg-white p-4 shadow-lg rounded-lg">
+              <h2 className="text-2xl text-black font-bold mb-4">{selectedAssignment.title}</h2>
+              {selectedAssignment.questions.map((q, index) => (
+                <div key={index} className="mb-4">
+                  <p className="font-semibold">{index + 1}. {q.question}</p>
+                  {q.options.map((option, optionIndex) => (
+                    <label key={optionIndex} className="block mt-1">
+                      <input
+                        type="radio"
+                        name={`question-${index}`}
+                        value={optionIndex}
+                        checked={userAnswers[index] === optionIndex}
+                        onChange={() => handleOptionChange(index, optionIndex)}
+                        className="mr-2"
+                      />
+                      {option}
+                    </label>
+                  ))}
+                </div>
+              ))}
+              <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" onClick={handleSubmit}>
+                Submit
+              </button>
+            </div>
+          )}
         </div>
 
       </div>
@@ -159,6 +234,3 @@ const CourseContentPage = ({ courseName }) => {
 export default function Page() {
   return <CourseContentPage courseName="Software Engineering" />;
 }
-
-
-
