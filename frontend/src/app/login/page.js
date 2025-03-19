@@ -90,6 +90,11 @@ export default function Login() {
         <p className="mt-2 text-sm text-gray-600 text-center">
           <Link href="/forgot-password" className="text-red-500 hover:underline">Forgot Password?</Link>
         </p>
+
+        {/* Redirect to Regsiter */}
+        <p className="mt-2 text-sm text-gray-600">
+          Don't have an account? <a href="/register" className="text-blue-600 hover:underline">Register</a>
+        </p>
       </div>
     </div>
   );

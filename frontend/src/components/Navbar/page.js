@@ -11,12 +11,12 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   // Hide Navbar on Login Page
-  if (pathname === "/login" || pathname === "/forgot-password" || pathname === "/") {
+  if (pathname === "/login" || pathname === "/forgot-password" || pathname === "/" || pathname === "/register") {
     return null;
   }
 
   const isPortalPage = ["/student-portal", "/instructor-portal"].includes(pathname);
-  const isCourseContentPage = ["/course-content/bdm", "/course-content/se"].includes(pathname);
+  const isCourseContentPage = ["/course-content/ba", "/course-content/se"].includes(pathname);
 
   return (
     <header className="bg-gray-100 p-4 shadow flex justify-between items-center w-full fixed top-0 left-0 right-0 z-10">

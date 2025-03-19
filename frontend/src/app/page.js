@@ -33,6 +33,11 @@ export default function Home() {
             Login
           </button>
         </Link>
+        <Link href="/register">
+          <button className="bg-[#800000] text-white px-6 py-2 rounded-full hover:bg-[#a94442] transition">
+            Sign Up
+          </button>
+        </Link>
         <Link href="/about-us">
           <button className="border-2 border-[#800000] text-[#800000] px-6 py-2 rounded-full hover:bg-[#800000] hover:text-white transition">
             Our Mission & Team

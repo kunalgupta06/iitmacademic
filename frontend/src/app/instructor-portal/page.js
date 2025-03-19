@@ -18,8 +18,8 @@ export default function InstructorPortal() {
     "English II", "Statistics I", "Statistics II"
   ];
   const diplomaCourses = [
-    "Tools in Data Science", "MLP", "MAD I", "DBMS", "MAD II",
-    "MLT", "PDSA", "Business Analytics", "System Commands", "BDM"
+    "Business Analytics", "Tools in Data Science", "MLP", "MAD I", "DBMS", "MAD II",
+    "MLT", "PDSA", "System Commands", "BDM"
   ];
   const degreeCourses = [
     "Software Engineering", "Software Testing", "Strategies for Professional Growth", "Deep Learning",
@@ -99,14 +99,24 @@ export default function InstructorPortal() {
           <div key={index} className="mb-10">
             <h2 className="text-2xl font-semibold text-black mb-4">{level}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {visibleCourses.map((course, idx) => (
-                <div 
-                  key={idx} 
+            {visibleCourses.map((course, idx) => {
+              const isRedirectCourse = course === "Business Analytics" || course === "Software Engineering";
+              const linkPath = course === "Business Analytics" ? "/edit-course/ba" :
+                               course === "Software Engineering" ? "/edit-course/se" : "";
+              const courseCard = (
+                <div
+                  key={idx}
                   className="bg-red-800 text-white rounded-lg shadow-lg p-4 transform transition-transform hover:scale-105 cursor-pointer"
                 >
                   <h3 className="font-semibold text-lg">{course}</h3>
                 </div>
-              ))}
+              );
+              return isRedirectCourse ? (
+                <Link key={idx} href={linkPath}>
+                  {courseCard}
+                </Link>
+              ) : courseCard;
+            })}
             </div>
             <div className="flex justify-between items-center mt-4 flex-wrap">
               <div className="flex space-x-4">

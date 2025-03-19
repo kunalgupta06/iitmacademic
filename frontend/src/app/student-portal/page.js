@@ -10,14 +10,14 @@ export default function StudentPortal() {
 
   useEffect(() => {
     const scores = {};
-    ["Business Data Management", "Software Engineering"].forEach((course) => {
+    ["Business Analytics", "Software Engineering"].forEach((course) => {
       scores[course] = Array.from({ length: 4 }, () => Math.floor(Math.random() * 16) + 85);
     });
     setAssignmentScores(scores);
   }, []);
 
   const courseLinks = {
-    "Business Data Management": "/course-content/bdm",
+    "Business Analytics": "/course-content/ba",
     "Software Engineering": "/course-content/se",
   };
 

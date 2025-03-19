@@ -14,7 +14,7 @@ const CourseContentPage = ({ courseName }) => {
     // Fetch data from your API
     const fetchCourseData = async () => {
       try {
-        const response = await fetch("/api/courses/se");
+        const response = await fetch("/api/courses/ba");
         const data = await response.json();
 
         // Add progress/completion fields manually
@@ -157,8 +157,11 @@ const CourseContentPage = ({ courseName }) => {
 };
 
 export default function Page() {
-  return <CourseContentPage courseName="Software Engineering" />;
+  return <CourseContentPage courseName="Business Analytics" />;
 }
+
+
+
 
 
 

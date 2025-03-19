@@ -6,7 +6,7 @@ import Navbar from "../../components/Navbar/page"; // Assuming your Navbar compo
 
 const subjects = [
   { name: "Software Engineering", color: "text-[#A31D1D]" },
-  { name: "Mathematics I", color: "text-[#A31D1D]" },
+  { name: "Business Analytics", color: "text-[#A31D1D]" },
   { name: "Mathematics II", color: "text-[#A31D1D]" },
   { name: "Statistics I", color: "text-[#A31D1D]" },
   { name: "SPG", color: "text-[#A31D1D]" },
@@ -14,7 +14,7 @@ const subjects = [
   { name: "Software Testing", color: "text-[#A31D1D]" },
   { name: "English", color: "text-[#A31D1D]" },
   { name: "BDM", color: "text-[#A31D1D]" },
-  { name: "Business Analytics", color: "text-[#A31D1D]" },
+  { name: "Mathematics I", color: "text-[#A31D1D]" },
   { name: "MLP", color: "text-[#A31D1D]" },
   { name: "MLT", color: "text-[#A31D1D]" },
   { name: "MAD I", color: "text-[#A31D1D]" },
