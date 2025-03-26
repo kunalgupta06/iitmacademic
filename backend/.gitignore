@@ -1,0 +1,5 @@
+# *.db
+*.rdb
+.env
+venv/
+__pycache__/

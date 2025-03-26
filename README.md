@@ -24,7 +24,7 @@ Ensure you have the following installed:
 
 ## Installation & Setup  
 
-### **1️Clone the Repository**  
+### **Clone the Repository**  
 ```sh
 git clone https://github.com/PaleshaRiya/soft-engg-project-jan-2025-se-Jan-30.git
 cd soft-engg-project-jan-2025-se-Jan-30
@@ -37,8 +37,9 @@ cd soft-engg-project-jan-2025-se-Jan-30
    ```
 2. Create a virtual environment and activate it:  
    ```sh
-   python -m venv venv
-   source venv/bin/activate  # On Windows use: venv\Scripts\activate
+   python -m venv venv  #Or py -3.12 -m venv venv
+   source venv/Scripts/activate   # Windows
+   source venv/bin/activate   # macOS/Linux
    ```
 3. Install dependencies:  
    ```sh
@@ -46,7 +47,7 @@ cd soft-engg-project-jan-2025-se-Jan-30
    ```
 4. Run the backend server:  
    ```sh
-   python app.py
+   flask run
    ```
    The backend will start at `http://localhost:5000`.  
 
