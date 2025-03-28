@@ -14,7 +14,9 @@ app.config.from_object(Config)
 
 # Initialize database & CORS
 db.init_app(app)
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, 
+     allow_headers=["Content-Type", "Authorization"], 
+     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
 
 # Ensure upload folder exists
 if not os.path.exists(Config.UPLOAD_FOLDER):
