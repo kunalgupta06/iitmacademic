@@ -1,0 +1,29 @@
+# Virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Pytest cache
+.pytest_cache/
+
+# Instance and uploads (temporary or user-specific)
+instance/
+uploads/
+test_uploads/
+
+# Flask session files
+flask_session/
+
+# Ignore test-related and generated files
+test.pdf
+test_api.py
+
+# Ignore configuration files (if containing secrets)
+config.py
+
+# Ignore database files (if applicable)
+*.db
