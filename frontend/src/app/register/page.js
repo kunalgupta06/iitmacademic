@@ -15,23 +15,65 @@ export default function Signup() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
 
+  //   if (!formData.role) {
+  //     alert("Please select a role before signing up.");
+  //     return;
+  //   }
+
+  //   // Show welcome message
+  //   alert(`Welcome ${formData.fullName}! Your ${formData.role === "student" ? "Student" : "Instructor"} Dashboard is ready!`);
+
+  //   // Redirect based on role
+  //   if (formData.role === "student") {
+  //     window.location.href = "/student-portal";
+  //   } else if (formData.role === "instructor") {
+  //     window.location.href = "/instructor-portal";
+  //   }
+  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
     if (!formData.role) {
       alert("Please select a role before signing up.");
       return;
     }
-
-    // Show welcome message
-    alert(`Welcome ${formData.fullName}! Your ${formData.role === "student" ? "Student" : "Instructor"} Dashboard is ready!`);
-
-    // Redirect based on role
-    if (formData.role === "student") {
-      window.location.href = "/student-portal";
-    } else if (formData.role === "instructor") {
-      window.location.href = "/instructor-portal";
-    }
+  
+    try {
+      const response = await fetch("http://127.0.0.1:5000/register", {  // Flask API URL
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.fullName,  // ✅ Mapping fullName to name (matches your model)
+          email: formData.email,
+          username: formData.username,
+          password: formData.password,
+          role: formData.role,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        alert(`Welcome ${formData.fullName}! Your ${formData.role === "student" ? "Student" : "Instructor"} Dashboard is ready!`);
+        
+        // Redirect based on role
+        if (formData.role === "student") {
+          window.location.href = "/student-portal";
+        } else if (formData.role === "instructor") {
+          window.location.href = "/instructor-portal";
+        }
+      } else {
+        alert(data.message);  // Show backend validation errors
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   return (

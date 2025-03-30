@@ -10,16 +10,32 @@ export default function Login() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Redirect based on role
-    if (formData.role === "student") {
-      window.location.href = "/student-portal";
-    } else if (formData.role === "instructor") {
-      window.location.href = "/instructor-portal";
-    }
-  };
+    try {
+      const response = await fetch("http://127.0.0.1:5000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+        credentials: "include", // Ensure session cookies are stored
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(data.message); // Display welcome message
+        window.location.href = data.redirect_url; // Redirect based on role
+      } else {
+        alert(data.message); // Show error message
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Something went wrong. Please try again.");
+    }
+  };
 
   return (
     <div className="relative w-full h-screen flex items-center justify-center">
@@ -99,4 +115,3 @@ export default function Login() {
     </div>
   );
 }
-
