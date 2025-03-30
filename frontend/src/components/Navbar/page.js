@@ -3,15 +3,31 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isHovered, setIsHovered] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [username, setUsername] = useState(null);
 
-  // Hide Navbar on Login Page
-  if (pathname === "/login" || pathname === "/forgot-password" || pathname === "/" || pathname === "/register") {
+  // Fetch username from localStorage when component mounts
+  useEffect(() => {
+    try {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        const parsedUser = JSON.parse(storedUser);
+        if (parsedUser?.username) {
+          setUsername(parsedUser.username);
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching username:", error);
+    }
+  }, []);
+
+  // Hide Navbar on Login, Register, and Home pages
+  if (["/login", "/forgot-password", "/", "/register"].includes(pathname)) {
     return null;
   }
 
@@ -28,8 +44,8 @@ export default function Navbar() {
       {/* Desktop Menu */}
       <div className="hidden md:flex items-center space-x-6">
         <div className="flex items-center space-x-2">
-          <span className="font-semibold text-black">John Doe</span>
-          <span className="text-lg text-black">👤</span>
+        <span className="font-semibold text-black">{username ?? "Guest"}</span>
+        <span className="text-lg text-black">👤</span>
         </div>
 
         {isPortalPage || isCourseContentPage ? (
@@ -37,7 +53,7 @@ export default function Navbar() {
             {/* AskIVA Button */}
             <Link href="/student-dashboard">
               <div
-                className={`flex items-center space-x-1 cursor-pointer transition-all duration-300 ${isHovered ? 'transform scale-110' : ''}`}
+                className={`flex items-center space-x-1 cursor-pointer transition-all duration-300 ${isHovered ? "transform scale-110" : ""}`}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
@@ -51,7 +67,7 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* For course-content pages show Go Back button instead of Latest Updates */}
+            {/* Go Back or Latest Updates */}
             {isCourseContentPage ? (
               <button
                 onClick={() => history.back()}
@@ -88,80 +104,20 @@ export default function Navbar() {
         )}
 
         {/* Sign Out Button */}
-        <Link href="/login">
-          <button className="bg-gray-100 border-2 border-black font-semibold text-black px-4 py-2 rounded-lg hover:bg-black hover:text-white">
-            Sign Out
-          </button>
-        </Link>
-      </div>
-
-      {/* Mobile Menu Button */}
-      <div className="md:hidden">
-        <button onClick={() => setMenuOpen(!menuOpen)} className="text-gray-900 text-xl">
-          ☰
+        <button
+          onClick={() => {
+            localStorage.removeItem("username"); // ✅ Clear username on logout
+            window.location.href = "/login";
+          }}
+          className="bg-gray-100 border-2 border-black font-semibold text-black px-4 py-2 rounded-lg hover:bg-black hover:text-white"
+        >
+          Sign Out
         </button>
       </div>
-
-      {/* Mobile Dropdown Menu */}
-      {menuOpen && (
-        <div className="absolute top-full right-0 w-full bg-white shadow-md flex flex-col items-center p-4 space-y-3 md:hidden">
-          <div className="flex items-center space-x-2">
-            <span className="font-semibold text-black">John Doe</span>
-            <span className="text-lg text-black">👤</span>
-          </div>
-
-          {isPortalPage || isCourseContentPage ? (
-            <>
-              <Link href="/student-dashboard">
-                <div className="flex items-center space-x-1 cursor-pointer transition-all duration-300">
-                  <span className="font-semibold text-black">AskIVA</span>
-                  <Image src="/app_name.png" alt="AskIVA" width={20} height={20} />
-                </div>
-              </Link>
-
-              {isCourseContentPage ? (
-                <button
-                  onClick={() => history.back()}
-                  className="w-full px-4 py-2 rounded-lg border border-gray-700 text-gray-900 font-semibold transition-all hover:bg-gray-900 hover:text-white shadow-md"
-                >
-                  ⬅ Go Back
-                </button>
-              ) : (
-                <div className="flex items-center space-x-2">
-                  <span className="font-semibold text-black">Latest Updates</span>
-                  <span className="text-lg text-black">🔔</span>
-                </div>
-              )}
-            </>
-          ) : (
-            <>
-              <button
-                onClick={() => history.back()}
-                className="w-full px-4 py-2 rounded-lg border border-gray-700 text-gray-900 font-semibold transition-all hover:bg-gray-900 hover:text-white shadow-md"
-              >
-                ⬅ Go Back
-              </button>
-
-              {pathname !== "/about-us" && (
-                <Link href="/about-us">
-                  <button className="w-full px-4 py-2 rounded-lg border border-gray-700 text-gray-900 font-semibold transition-all hover:bg-gray-900 hover:text-white shadow-md">
-                    🎯 About Us
-                  </button>
-                </Link>
-              )}
-            </>
-          )}
-
-          <Link href="/login">
-            <button className="w-full px-4 py-2 rounded-lg border border-red-500 text-red-600 font-semibold transition-all hover:bg-red-500 hover:text-white shadow-md">
-              ⏻ Logout
-            </button>
-          </Link>
-        </div>
-      )}
     </header>
   );
 }
+
 
 
 

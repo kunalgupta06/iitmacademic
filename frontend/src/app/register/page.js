@@ -48,9 +48,9 @@ export default function Signup() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: formData.fullName,  // ✅ Mapping fullName to name (matches your model)
+          name: formData.fullName,  // ✅ Correct mapping
           email: formData.email,
-          username: formData.username,
+          username: formData.username,  // ✅ Send username properly
           password: formData.password,
           role: formData.role,
         }),
@@ -59,22 +59,23 @@ export default function Signup() {
       const data = await response.json();
   
       if (response.ok) {
-        alert(`Welcome ${formData.fullName}! Your ${formData.role === "student" ? "Student" : "Instructor"} Dashboard is ready!`);
+        // ✅ Store username in localStorage for later use
+        localStorage.setItem("username", formData.username);
+  
+        alert(`Welcome ${formData.fullName}! Your ${formData.role === "student" ? "Student" : "Instructor"} Portal is ready!`);
         
-        // Redirect based on role
-        if (formData.role === "student") {
-          window.location.href = "/student-portal";
-        } else if (formData.role === "instructor") {
-          window.location.href = "/instructor-portal";
-        }
+        // ✅ Redirect based on role
+        window.location.href = formData.role === "student" ? "/student-portal" : "/instructor-portal";
+        
       } else {
         alert(data.message);  // Show backend validation errors
       }
     } catch (error) {
       console.error("Error:", error);
       alert("Something went wrong. Please try again.");
-    }
+    }
   };
+  
 
   return (
     <div className="relative w-full h-screen flex items-center justify-center">

@@ -12,7 +12,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch("http://127.0.0.1:5000/login", {
         method: "POST",
@@ -22,20 +22,25 @@ export default function Login() {
         body: JSON.stringify(formData),
         credentials: "include", // Ensure session cookies are stored
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
         alert(data.message); // Display welcome message
-        window.location.href = data.redirect_url; // Redirect based on role
+  
+        // ✅ Store username in localStorage
+        localStorage.setItem("user", JSON.stringify({ username: data.user.username }));
+  
+        // Redirect based on role
+        window.location.href = data.redirect_url;
       } else {
         alert(data.message); // Show error message
       }
     } catch (error) {
       console.error("Error:", error);
       alert("Something went wrong. Please try again.");
-    }
-  };
+    }
+  };  
 
   return (
     <div className="relative w-full h-screen flex items-center justify-center">

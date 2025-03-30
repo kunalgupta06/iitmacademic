@@ -9,6 +9,12 @@ export default function InstructorPortal() {
   const [currentDate, setCurrentDate] = useState("");
 
   useEffect(() => {
+    // Fetch stored username
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setUsername(user.username);
+    }
+
     const options = { day: "numeric", month: "long", year: "numeric" };
     setCurrentDate(new Date().toLocaleDateString("en-GB", options));
   }, []);
@@ -57,7 +63,7 @@ export default function InstructorPortal() {
         </div>
         <div className="flex items-center space-x-6">
           <div className="flex items-center space-x-2">
-            <span className="font-semibold text-black">John Doe</span>
+            <span className="font-semibold text-black">{username || "Guest"}</span>
             <span className="text-lg text-black">👤</span>
           </div>
           <Link href="/instructor-dashboard">

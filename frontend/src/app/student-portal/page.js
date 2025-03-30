@@ -7,8 +7,15 @@ import { useState, useEffect } from "react";
 export default function StudentPortal() {
   const [isHovered, setIsHovered] = useState(false);
   const [assignmentScores, setAssignmentScores] = useState(null);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
+    // Fetch stored username
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setUsername(user.username);
+    }
+
     const scores = {};
     ["Business Analytics", "Software Engineering"].forEach((course) => {
       scores[course] = Array.from({ length: 4 }, () => Math.floor(Math.random() * 16) + 85);
@@ -37,7 +44,7 @@ export default function StudentPortal() {
           </div>
           <div className="flex items-center space-x-6">
             <div className="flex items-center space-x-2">
-              <span className="font-semibold text-black">John Doe</span>
+              <span className="font-semibold text-black">{username || "Guest"}</span>
               <span className="text-lg text-black">👤</span>
             </div>
             <Link href="/student-dashboard">
