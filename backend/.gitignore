@@ -22,8 +22,5 @@ flask_session/
 test.pdf
 test_api.py
 
-# Ignore configuration files (if containing secrets)
-config.py
-
 # Ignore database files (if applicable)
 *.db
