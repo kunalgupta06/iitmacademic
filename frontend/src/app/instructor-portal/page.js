@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 export default function InstructorPortal() {
   const [isHovered, setIsHovered] = useState(false);
   const [currentDate, setCurrentDate] = useState("");
+  const [username, setUsername] = useState(null); // ✅ Prevents undefined error
 
   useEffect(() => {
     // Fetch stored username
