@@ -35,7 +35,7 @@ export default function AnalysisPage() {
 
         <Link href="/study-patterns">
           <button className="flex items-center justify-center w-full sm:w-72 px-6 py-4 sm:px-8 sm:py-5 text-lg sm:text-xl bg-[#a31d1d] hover:bg-[#811515] text-white font-semibold rounded-lg transition">
-            📌 Study Patterns of Students
+            📌 Students Registered 
           </button>
         </Link>
       </div>
