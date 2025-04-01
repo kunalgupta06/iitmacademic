@@ -15,7 +15,13 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 export default function ConceptsPage() {
   const conceptData = {
-    labels: ["Concept 1", "Concept 2", "Concept 3", "Concept 4", "Concept 5"],
+    labels: [
+      "Software Development Life Cycle (SDLC)",
+      "Object-Oriented Programming (OOP)",
+      "Design Patterns",
+      "Agile Methodology",
+      "Version Control Systems (Git)"
+    ],
     datasets: [
       {
         label: "Frequency of Concepts",
@@ -23,9 +29,9 @@ export default function ConceptsPage() {
         backgroundColor: ["#FF99A5", "#6FB8F2", "#FFD580", "#76D7D7", "#B08CFF"],
         borderColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"], 
         borderWidth: 2,
-        borderRadius: 6, 
-        barThickness: 40, 
-        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"], // Matches border on hover
+        borderRadius: 6,
+        barThickness: "flex", 
+        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"],
       },
     ],
   };
@@ -33,29 +39,36 @@ export default function ConceptsPage() {
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
+    indexAxis: "y", // Horizontal bars for better text fit
     plugins: {
       legend: { display: false },
       title: {
         display: true,
-        text: "Top 5 Most Asked Concepts",
-        font: { size: 18 },
+        text: "Top 5 Most Asked Concepts (SE)",
+        font: { size: 16 },
         color: "#000",
       },
     },
     scales: {
-      x: { ticks: { color: "#000" } },
-      y: { ticks: { color: "#000" } },
+      y: {
+        ticks: {
+          font: { size: 12 },
+          callback: (value) => (value.length > 30 ? value.slice(0, 30) + "..." : value),
+          color: "#000",
+        },
+      },
+      x: { ticks: { font: { size: 12 }, color: "#000" } },
     },
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center p-4 bg-blue-100">
-      {/* Chart Container */}
-      <div className="bg-white p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-3xl">
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 text-center mb-4">
+    <div className="w-full min-h-screen flex flex-col items-center justify-center p-4 bg-blue-100 mt-10">
+      {/* Smaller Chart Container */}
+      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-2xl">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-800 text-center mb-3">
           Most Asked Concepts
         </h2>
-        <div className="w-full h-64 sm:h-72"> {/* Adjusted height */}
+        <div className="w-full h-[350px] sm:h-[300px]"> {/* Reduced height */}
           <Bar data={conceptData} options={chartOptions} />
         </div>
       </div>
