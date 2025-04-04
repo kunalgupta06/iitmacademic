@@ -47,3 +47,8 @@ class score(db.Model):
     user = db.relationship('user', backref=db.backref('score', lazy=True))
     assignment = db.relationship('assignment', backref=db.backref('score', lazy=True))
 
+
+class subject_questions(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    query = db.Column(db.String(100), nullable=False)
+

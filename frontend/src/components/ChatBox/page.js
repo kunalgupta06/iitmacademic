@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { sendProgrammeGuidelineQuery, sendSubjectQuery } from "../../services/chatService";
+import { useSearchParams } from "next/navigation";
 
 export default function ChatBox({ apiType }) {
   const [messages, setMessages] = useState([]);
@@ -11,7 +12,9 @@ export default function ChatBox({ apiType }) {
   const [selectedChatId, setSelectedChatId] = useState(null);
   const chatEndRef = useRef(null);
 
-  // Function to send message
+  const searchParams = useSearchParams();
+  const subject = searchParams.get("subject"); // e.g., 'mlf', 'software-engineering'
+
   const sendMessage = async () => {
     if (!input.trim()) return;
     const newMessages = [...currentChat, { sender: "user", text: input }];
@@ -23,7 +26,7 @@ export default function ChatBox({ apiType }) {
       if (apiType === "programme-guideline") {
         response = await sendProgrammeGuidelineQuery(input);
       } else if (apiType === "subject-queries") {
-        response = await sendSubjectQuery(input);
+        response = await sendSubjectQuery(input, subject);
       }
 
       const updatedMessages = [
@@ -39,7 +42,6 @@ export default function ChatBox({ apiType }) {
     }
   };
 
-  // Save chat and start a new one
   const startNewChat = () => {
     if (currentChat.length > 0) {
       setChatHistory([
@@ -51,7 +53,6 @@ export default function ChatBox({ apiType }) {
     setSelectedChatId(null);
   };
 
-  // Open a chat from history
   const openChat = (chatId) => {
     const chat = chatHistory.find((c) => c.id === chatId);
     if (chat) {
@@ -60,7 +61,6 @@ export default function ChatBox({ apiType }) {
     }
   };
 
-  // Rename a chat
   const renameChat = (chatId, newName) => {
     setChatHistory(
       chatHistory.map((chat) =>
@@ -69,7 +69,6 @@ export default function ChatBox({ apiType }) {
     );
   };
 
-  // Delete a chat
   const deleteChat = (chatId) => {
     setChatHistory(chatHistory.filter((chat) => chat.id !== chatId));
     if (selectedChatId === chatId) {
@@ -78,29 +77,24 @@ export default function ChatBox({ apiType }) {
     }
   };
 
-  // Auto-scroll to latest message
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [currentChat]);
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-center bg-[#a31d1d] p-4">
-      {/* Heading (Shifted Downwards with mt-8) */}
       <div className="flex items-center justify-center space-x-3 mt-20">
         <h1 className="text-white text-2xl font-bold text-center">
           How can I assist you today?
         </h1>
       </div>
 
-      {/* Chat Container (Shifted Downwards with mt-6) */}
       <div className="bg-white rounded-2xl shadow-lg flex flex-col md:flex-row overflow-hidden w-full md:w-4.5/5 lg:w-4/5 h-[78vh] mt-2">
-        {/* Chat History Panel */}
         <div className="w-full md:w-1/4 bg-gray-200 p-4 flex flex-col rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none">
           <h2 className="text-lg text-black font-bold mb-3 text-center">
             Chat History
           </h2>
 
-          {/* New Chat Button */}
           <button
             onClick={startNewChat}
             className="w-full bg-blue-500 text-white py-2 rounded-md mb-4 hover:bg-blue-700"
@@ -108,7 +102,6 @@ export default function ChatBox({ apiType }) {
             + New Chat
           </button>
 
-          {/* Chat History List (Scrollable) */}
           <div className="flex-1 overflow-y-auto space-y-2 custom-scrollbar">
             {chatHistory.map((chat) => (
               <div
@@ -133,9 +126,7 @@ export default function ChatBox({ apiType }) {
           </div>
         </div>
 
-        {/* Chat Area */}
         <div className="w-full md:w-3/4 flex flex-col justify-between p-4 rounded-b-2xl md:rounded-r-2xl md:rounded-bl-none">
-          {/* Chat Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
             {currentChat.map((msg, index) => (
               <div
@@ -156,7 +147,6 @@ export default function ChatBox({ apiType }) {
             <div ref={chatEndRef}></div>
           </div>
 
-          {/* Input Field */}
           <div className="relative w-full p-4">
             <input
               type="text"
@@ -177,6 +167,7 @@ export default function ChatBox({ apiType }) {
     </div>
   );
 }
+
 
 
 

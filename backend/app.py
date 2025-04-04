@@ -6,7 +6,16 @@ from database import db
 from config import Config
 from controllers.user_auth import AIChat, AddAssignment, AddLecture, CourseContent, GradeAssignment, InstructorDashboard, Login, Register, ServePDF, StudentDashboard, SubmitAssignment, ViewAssignments, ViewScores, ViewSubmittedAssignments
 from flask import Flask, session
+from models import subject_questions
 from flask_session import Session
+from flask import Flask, request, jsonify
+from langchain.chains import RetrievalQA
+from langchain_community.vectorstores import Chroma
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_google_genai import ChatGoogleGenerativeAI
+from dotenv import load_dotenv
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -47,6 +56,51 @@ api.add_resource(ServePDF, "/pdfs/<path:filename>")
 print(app.url_map)
 print("UPLOAD_FOLDER Path:", os.path.abspath(UPLOAD_FOLDER))
 print("Files in UPLOAD_FOLDER:", os.listdir(UPLOAD_FOLDER))
+
+
+
+@app.route("/programme-guideline", methods=["POST"])
+def programme_guideline():
+    data = request.get_json()
+    query = data.get("question")
+    print(query)
+    new_query=subject_questions(query)
+    #print(new_query)
+    db.session.add(new_query)
+    db.session.commit()
+
+    if not query:
+        return jsonify({"error": "Missing question"}), 400
+
+    # ✅ Use Google Generative AI Embeddings
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
+
+    vectorstore = Chroma(
+        persist_directory="./chroma_db/programme-guidelines",
+        collection_name="programme-guidelines",
+        embedding_function=embeddings
+    )
+
+    retriever = vectorstore.as_retriever(search_kwargs={"k": 5})
+
+    # ✅ Updated model to `gemini-1.5-flash-latest`
+    llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest", verbose=True, system_message="You are an academic chatbot. Always provide clear and factual answers based on the retrieved documents.")
+
+    qa_chain = RetrievalQA.from_chain_type(
+        llm=llm,
+        retriever=retriever,
+        return_source_documents=True
+    )
+
+    result = qa_chain({"query": query})
+    
+    return jsonify({
+        "answer": result["result"],
+        "sources": [doc.metadata.get("source") for doc in result["source_documents"]]
+    })
+
+
+
 
 if __name__ == "__main__":
     with app.app_context():
