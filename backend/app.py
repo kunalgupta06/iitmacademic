@@ -6,7 +6,7 @@ from database import db
 from config import Config
 from controllers.user_auth import AIChat, AddAssignment, AddLecture, CourseContent, GradeAssignment, InstructorDashboard, Login, Register, ServePDF, StudentDashboard, SubmitAssignment, ViewAssignments, ViewScores, ViewSubmittedAssignments
 from flask import Flask, session
-from models import subject_questions
+from models import db, subject_questions
 from flask_session import Session
 from flask import Flask, request, jsonify
 from langchain.chains import RetrievalQA
@@ -63,14 +63,19 @@ print("Files in UPLOAD_FOLDER:", os.listdir(UPLOAD_FOLDER))
 def programme_guideline():
     data = request.get_json()
     query = data.get("question")
-    print(query)
-    new_query=subject_questions(query)
+    #print(query)
+    #new_query=subject_questions(query)
     #print(new_query)
-    db.session.add(new_query)
-    db.session.commit()
+    #db.session.add(new_query)
+    #db.session.commit()
 
     if not query:
         return jsonify({"error": "Missing question"}), 400
+
+    # ✅ Save to database
+    new_ques = subject_questions(question=query)
+    db.session.add(new_ques)
+    db.session.commit()
 
     # ✅ Use Google Generative AI Embeddings
     embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
