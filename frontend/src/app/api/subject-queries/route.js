@@ -12,7 +12,7 @@ export async function POST(req) {
     }
 
     const subjectMap = {
-      "mlf": "ml-subject",
+      "machine-learning-foundations": "mlf-subject",
       "software-engineering": "se-subject"
       // Add more mappings as needed
     };

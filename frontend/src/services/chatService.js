@@ -15,8 +15,8 @@ export const sendProgrammeGuidelineQuery = async (question) => {
 
 export const sendSubjectQuery = async (question, subject) => {
   try {
-    // This still points to your Next.js API route for now (unless you also move this to Flask)
-    const response = await axios.post("/api/subject-queries", {
+    // ✅ Now sending directly to Flask backend
+    const response = await axios.post(`${FLASK_API_URL}/subject-queries`, {
       question,
       subject,
     });

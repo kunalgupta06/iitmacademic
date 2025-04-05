@@ -1,6 +1,5 @@
 import os
 from flask import   app, current_app, jsonify, make_response, request, send_from_directory, session, url_for
-
 from models import assignment, lectures, score, subject, user
 from database import db
 from flask_restful import Resource

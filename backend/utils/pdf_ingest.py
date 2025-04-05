@@ -41,8 +41,8 @@ def ingest_pdf_folder(folder_path, collection_name):
 
 # Re-ingest PDFs with the new embedding model
 ingest_pdf_folder("pdfs/programme", "programme-guidelines")
-#ingest_pdf_folder("pdfs/ml", "ml-subject")
-#ingest_pdf_folder("pdfs/se", "se-subject")
+ingest_pdf_folder("pdfs/mlf", "mlf-subject")
+ingest_pdf_folder("pdfs/se", "se-subject")
 
 
 

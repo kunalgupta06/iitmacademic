@@ -45,7 +45,11 @@ cd soft-engg-project-jan-2025-se-Jan-30
    ```sh
    pip install -r requirements.txt
    ```
-4. Run the backend server:  
+4. Build vector store:  
+   ```sh
+   python utils/pdf_ingest.py
+   ```
+5. Run the backend server:  
    ```sh
    flask run
    ```

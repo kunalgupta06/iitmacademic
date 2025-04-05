@@ -15,7 +15,7 @@ const subjects = [
   { name: "English", color: "text-[#A31D1D]" },
   { name: "BDM", color: "text-[#A31D1D]" },
   { name: "Mathematics I", color: "text-[#A31D1D]" },
-  { name: "MLF", color: "text-[#A31D1D]" },
+  { name: "Machine Learning Foundations", color: "text-[#A31D1D]" },
   { name: "MAD I", color: "text-[#A31D1D]" },
   { name: "MAD II", color: "text-[#A31D1D]" },
   { name: "Java", color: "text-[#A31D1D]" },
