@@ -17,9 +17,6 @@ class ProgrammeGuideline(Resource):
         if not query:
             return jsonify({"error": "Missing question"}), 400
 
-        new_ques = subject_questions(question=query)
-        db.session.add(new_ques)
-        db.session.commit()
 
         embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
 
@@ -61,9 +58,12 @@ class SubjectQueries(Resource):
         if not query or not subject:
             return jsonify({"error": "Missing question or subject"}), 400
 
-        new_ques = subject_questions(question=query)
+        
+        new_ques = subject_questions(question=query, subject=subject)
+        print(new_ques)
         db.session.add(new_ques)
         db.session.commit()
+        
 
         subject_map = {
             "machine-learning-foundations": "mlf-subject",
