@@ -25,3 +25,5 @@ test_api.py
 chroma_db/
 chroma/
 
+.env
+

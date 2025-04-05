@@ -50,5 +50,6 @@ class score(db.Model):
 
 class subject_questions(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    subject = db.Column(db.String(50))
     question = db.Column(db.String(1000))
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)

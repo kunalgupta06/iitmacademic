@@ -35,6 +35,10 @@ cd soft-engg-project-jan-2025-se-Jan-30
    ```sh
    cd backend
    ```
+2. Create a .env file in this backend directory and add your Google API key
+   ```sh
+   GOOGLE_API_KEY=your-google-api-key-here
+   ```
 2. Create a virtual environment and activate it:  
    ```sh
    python -m venv venv  #Or py -3.12 -m venv venv
