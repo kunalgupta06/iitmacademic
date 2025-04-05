@@ -25,7 +25,7 @@ export default function InstructorPortal() {
     "English II", "Statistics I", "Statistics II"
   ];
   const diplomaCourses = [
-    "Business Analytics", "Tools in Data Science", "MLP", "MAD I", "DBMS", "MAD II",
+    "Machine Learning Foundations", "Tools in Data Science", "MLP", "MAD I", "DBMS", "MAD II",
     "MLT", "PDSA", "System Commands", "BDM"
   ];
   const degreeCourses = [
@@ -107,8 +107,8 @@ export default function InstructorPortal() {
             <h2 className="text-2xl font-semibold text-black mb-4">{level}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {visibleCourses.map((course, idx) => {
-              const isRedirectCourse = course === "Business Analytics" || course === "Software Engineering";
-              const linkPath = course === "Business Analytics" ? "/edit-course/ba" :
+              const isRedirectCourse = course === "Machine Learning Foundations" || course === "Software Engineering";
+              const linkPath = course === "Machine Learning Foundations" ? "/edit-course/mlf" :
                                course === "Software Engineering" ? "/edit-course/se" : "";
               const courseCard = (
                 <div

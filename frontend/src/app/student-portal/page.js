@@ -17,14 +17,14 @@ export default function StudentPortal() {
     }
 
     const scores = {};
-    ["Business Analytics", "Software Engineering"].forEach((course) => {
+    ["Machine Learning Foundations", "Software Engineering"].forEach((course) => {
       scores[course] = Array.from({ length: 4 }, () => Math.floor(Math.random() * 16) + 85);
     });
     setAssignmentScores(scores);
   }, []);
 
   const courseLinks = {
-    "Business Analytics": "/course-content/ba",
+    "Machine Learning Foundations": "/course-content/mlf",
     "Software Engineering": "/course-content/se",
   };
 

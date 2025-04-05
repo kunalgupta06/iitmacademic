@@ -22,5 +22,6 @@ flask_session/
 test.pdf
 test_api.py
 
-# Ignore database files (if applicable)
-*.db
+chroma_db/
+chroma/
+

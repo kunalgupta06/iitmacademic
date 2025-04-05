@@ -47,3 +47,8 @@ class score(db.Model):
     user = db.relationship('user', backref=db.backref('score', lazy=True))
     assignment = db.relationship('assignment', backref=db.backref('score', lazy=True))
 
+
+class subject_questions(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.String(1000))
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)

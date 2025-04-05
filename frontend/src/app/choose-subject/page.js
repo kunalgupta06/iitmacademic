@@ -15,8 +15,7 @@ const subjects = [
   { name: "English", color: "text-[#A31D1D]" },
   { name: "BDM", color: "text-[#A31D1D]" },
   { name: "Mathematics I", color: "text-[#A31D1D]" },
-  { name: "MLP", color: "text-[#A31D1D]" },
-  { name: "MLT", color: "text-[#A31D1D]" },
+  { name: "Machine Learning Foundations", color: "text-[#A31D1D]" },
   { name: "MAD I", color: "text-[#A31D1D]" },
   { name: "MAD II", color: "text-[#A31D1D]" },
   { name: "Java", color: "text-[#A31D1D]" },
@@ -73,7 +72,7 @@ export default function ChooseSubject() {
             displayedSubjects.map((subject, index) => (
               <Link
                 key={index}
-                href="/subject-queries"
+                href={`/subject-queries?subject=${encodeURIComponent(subject.name.toLowerCase().replace(/\s+/g, '-'))}`}
                 className="p-6 bg-white/90 text-black shadow-lg rounded-xl cursor-pointer hover:shadow-2xl transform transition-transform duration-300 hover:scale-105 text-center"
                 style={{ height: "150px", display: "flex", flexDirection: "column", justifyContent: "center" }}
               >
