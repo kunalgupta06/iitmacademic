@@ -1,29 +1,29 @@
-# Virtual environment
-venv/
-
-# Python cache
+# Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# Pytest cache
+# Virtual environment
+venv/
+
+# Pytest
 .pytest_cache/
 
-# Instance and uploads (temporary or user-specific)
+# Flask-specific
+flask_session/
 instance/
+
+# Test files and uploads
+test.pdf
+test_api.py
 uploads/
 test_uploads/
 
-# Flask session files
-flask_session/
-
-# Ignore test-related and generated files
-test.pdf
-test_api.py
-
+# ChromaDB
 chroma_db/
 chroma/
 
+# Environment variables
 .env
 
