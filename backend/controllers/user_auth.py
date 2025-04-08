@@ -1,5 +1,12 @@
+import json
 import os
-from flask import   app, current_app, jsonify, make_response, request, send_from_directory, session, url_for
+import traceback
+from flask import   Response, app, current_app, jsonify, make_response, request, send_from_directory, session, url_for
+from flask_cors import cross_origin
+import msgpack
+import numpy as np
+import pandas as pd
+
 from models import assignment, lectures, score, subject, user
 from database import db
 from flask_restful import Resource
@@ -296,7 +303,7 @@ import os
 from flask import request, jsonify, session, current_app
 from flask_restful import Resource
 from werkzeug.utils import secure_filename
-from datetime import datetime
+from datetime import datetime, time
 from models import db, assignment  # Ensure Assignment model is imported
 
 ALLOWED_EXTENSIONS = {"pdf"}
@@ -610,4 +617,394 @@ class AIChat(Resource):
             return jsonify({"response": response.text})
         except Exception as e:
             return jsonify({"error": str(e)}), 500
+import logging
+
+logger = logging.getLogger(__name__)
+
+# class AnalyticsReport(Resource):
+#     @cross_origin()  # Enable CORS
+#     def get(self):
+#         try:
+#             logger.info("Triggered analytics endpoint.")
+#             results = analyze_questions_from_db()
+
+#             logger.debug(f"Sending data to frontend: {json.dumps(results, indent=2)}")
+
+#             return jsonify({  # Proper JSON response
+#                 "status": "success",
+#                 "message": "Course analytics generated.",
+#                 "data": results
+#             }), 200
+
+#         except Exception as e:
+#             logger.error(f"Error in AnalyticsReport: {str(e)}")
+#             return jsonify({
+#                 "status": "error",
+#                 "message": "Failed to generate analytics.",
+#                 "details": str(e)
+#             }), 500
+
+
+
+from analytics import  AnalyticsStore
+
+from flask import current_app
+ # import the instance you created
+
+
+class AnalyticsReport(Resource):
+    def get(self):
+        """Enhanced analytics report endpoint with deep validation"""
+        try:
+            analytics_engine = current_app.analytics_engine
+
+            # Validate analytics engine state
+            if not analytics_engine or not hasattr(analytics_engine, 'manager'):
+                logger.critical("Analytics engine misconfigured")
+                return self._error_response(
+                    "Analytics system not initialized", 
+                    "EngineConfigurationError",
+                    500
+                )
+
+            # Generate and validate report
+            raw_result = analytics_engine.manager.generate_report()
+            logger.debug("Raw report structure: %s", self._safe_debug_str(raw_result))
+            
+            # Deep validation and sanitization
+            validated_result = self._validate_and_sanitize(raw_result)
+            
+            if validated_result.get('status') == 'error':
+                return validated_result, 500
+
+            logger.info("Successfully generated analytics report")
+            return {
+                "status": "success",
+                "data": validated_result['data'],
+                "generated_at": datetime.utcnow().isoformat()
+            }, 200
+
+        except Exception as e:
+            logger.critical("Unhandled report generation error: %s", str(e), exc_info=True)
+            return self._error_response(
+                "Critical report generation failure",
+                "InternalServerError",
+                500,
+                exception=e
+            )
+
+    def _validate_and_sanitize(self, raw_data):
+        """Multi-stage validation and sanitization pipeline"""
+        try:
+            # Stage 1: Structural validation
+            if not self._validate_base_structure(raw_data):
+                raise ValueError("Invalid base report structure")
+
+            # Stage 2: Data type validation
+            if not self._validate_data_types(raw_data.get('data', {})):
+                raise ValueError("Data type validation failed")
+
+            # Stage 3: Content sanitization
+            sanitized = self._sanitize_structure(raw_data)
+
+            # Stage 4: Serialization check
+            self._test_serialization(sanitized)
+            
+            return sanitized
+
+        except Exception as validation_error:
+            logger.error("Validation/sanitization failed: %s", str(validation_error))
+            return self._error_response(
+                "Data validation failed",
+                "ValidationError",
+                500,
+                exception=validation_error
+            )
+
+    def _validate_base_structure(self, data):
+        """Validate basic report structure"""
+        required = {
+            'status': (str,),
+            'data': (dict,)
+        }
+        return all(
+            isinstance(data.get(key), tuple(types)) 
+            for key, types in required.items()
+        )
+
+    def _validate_data_types(self, data):
+        """Deep type validation for report data"""
+        structure_rules = {
+            'subject_mapping': (dict,),
+            'topic_analysis': {
+                'keywords': (dict,)
+            },
+            'insights': {
+                'total_concepts': (int,),
+                'most_frequent_keyword': (str, type(None)),
+                'total_questions': (int,)
+            }
+        }
+        return self._validate_nested(data, structure_rules)
+
+    def _validate_nested(self, data, rules, path=None):
+        """Recursive nested structure validation"""
+        path = path or []
+        for key, expected in rules.items():
+            current_path = path + [key]
+            if key not in data:
+                logger.error("Missing key: %s", '->'.join(current_path))
+                return False
+            
+            value = data[key]
+            if isinstance(expected, dict):
+                if not isinstance(value, dict):
+                    logger.error("Type mismatch at %s: expected dict, got %s",
+                                '->'.join(current_path), type(value).__name__)
+                    return False
+                if not self._validate_nested(value, expected, current_path):
+                    return False
+            else:
+                if not isinstance(value, tuple(expected)):
+                    logger.error("Type mismatch at %s: expected %s, got %s",
+                                '->'.join(current_path), 
+                                [t.__name__ for t in expected],
+                                type(value).__name__)
+                    return False
+        return True
+
+    def _sanitize_structure(self, data):
+        """Recursive sanitization with blocklist handling"""
+        blocklist = {'password', 'secret', 'token'}
         
+        def sanitizer(obj, path):
+            if isinstance(obj, dict):
+                return {k: sanitizer(v, path + [k]) 
+                        for k, v in obj.items() 
+                        if k.lower() not in blocklist}
+            if isinstance(obj, list):
+                return [sanitizer(item, path + [f'[{i}]']) 
+                        for i, item in enumerate(obj)]
+            if isinstance(obj, (str, int, float, bool, type(None))):
+                return obj
+            if isinstance(obj, bytes):
+                return obj.decode('utf-8', errors='replace')
+            if hasattr(obj, 'isoformat'):
+                return obj.isoformat()
+            return str(obj)
+        
+        return sanitizer(data, [])
+
+    def _test_serialization(self, data):
+        """Validate JSON serialization with custom encoder"""
+        class SafeEncoder(json.JSONEncoder):
+            def default(self, obj):
+                if isinstance(obj, (datetime)):
+                    return obj.isoformat()
+                if isinstance(obj, bytes):
+                    return obj.decode('utf-8', errors='replace')
+                return super().default(obj)
+
+        try:
+            json.dumps(data, cls=SafeEncoder)
+        except TypeError as e:
+            logger.error("Serialization failed: %s", str(e))
+            raise ValueError(f"Non-serializable data: {str(e)}") from e
+
+    def _safe_debug_str(self, data, max_length=400):
+        """Safe debug string generation"""
+        try:
+            debug_str = str(data)
+            return (debug_str[:max_length] + '...') if len(debug_str) > max_length else debug_str
+        except Exception as e:
+            return f"Debug string error: {str(e)}"
+
+    def _error_response(self, message, error_type, status_code, exception=None):
+        """Standardized error response format"""
+        response = {
+            "status": "error",
+            "message": message,
+            "error_type": error_type,
+            "documentation": current_app.config.get('ERROR_DOCS_URL', '#')
+        }
+        
+        if current_app.config.get('DEBUG', False) and exception:
+            response.update({
+                "exception": type(exception).__name__,
+                "detail": str(exception),
+                "trace": traceback.format_exc(limit=5)
+            })
+            
+        return response, status_code
+
+
+# user_auth.py
+from flask_restful import Resource
+from flask import current_app
+import logging
+import time
+import traceback
+from threading import Lock
+
+logger = logging.getLogger(__name__)
+
+class GenerateAnalytics(Resource):
+    _lock = Lock()  # Thread-safe operation lock
+
+    def post(self):
+        """Safe analytics processing initialization"""
+        try:
+            with self._lock:  # Ensure thread-safe checks
+                analytics_engine = current_app.analytics_engine
+
+                # Validate engine existence and structure
+                required_attrs = ['running', 'vertex_model', 'start_background_analysis']
+                if not all(hasattr(analytics_engine, attr) for attr in required_attrs):
+                    logger.critical("Analytics engine missing required attributes")
+                    return self._error_response(
+                        "System configuration error",
+                        "EngineConfigurationError",
+                        500
+                    )
+
+                # Prevent concurrent execution
+                if analytics_engine.running:
+                    logger.warning("Concurrent analysis attempt detected")
+                    return self._error_response(
+                        "Analysis already in progress",
+                        "ConcurrentOperationError",
+                        409,
+                        conflict_info={
+                            "polling_endpoint": "/analyticsreport",
+                            "retry_after": 300
+                        }
+                    )
+
+                # Initialize processing
+                try:
+                    app_instance = current_app._get_current_object()
+                    analytics_engine.start_background_analysis(app_instance)
+
+                    if not getattr(analytics_engine.thread, 'is_alive', lambda: False)():
+                        logger.error("Background thread failed to start")
+                        return self._error_response(
+                            "Processing initialization failed",
+                            "ThreadError",
+                            500
+                        )
+
+                    logger.info("Analysis initiated (Thread ID: %s)", 
+                               analytics_engine.thread.ident)
+                    
+                    return {
+                        "status": "accepted",
+                        "message": "Analysis started",
+                        "monitoring": {
+                            "status_endpoint": "/analytics/status",
+                            "cancel_endpoint": "/analytics/cancel",
+                            "estimated_completion": int(time.time()) + 300
+                        }
+                    }, 202
+
+                except RuntimeError as e:
+                    logger.error("Context error: %s", str(e))
+                    return self._error_response(
+                        "Application context error",
+                        "ContextError",
+                        500,
+                        exception=e
+                    )
+
+        except Exception as e:
+            logger.critical("Unhandled initialization error: %s", str(e), exc_info=True)
+            return self._error_response(
+                "Critical system error",
+                "InternalServerError",
+                500,
+                exception=e
+            )
+
+    def _error_response(self, message, error_type, status_code, exception=None, **extras):
+        """Standardized error formatting"""
+        response = {
+            "status": "error",
+            "message": message,
+            "error_type": error_type,
+            "code": status_code,
+            "documentation": current_app.config.get('ERROR_DOCS_URL', '#')
+        }
+        
+        # Add debug info in development mode
+        if current_app.debug and exception:
+            response.update({
+                "exception": type(exception).__name__,
+                "detail": str(exception),
+                "trace": traceback.format_exc(limit=5)
+            })
+            
+        response.update(extras)
+        return response, status_code
+    
+
+from flask_restful import Resource
+import textwrap
+
+class ExplanationGenerator(Resource):
+    def post(self):
+        data = request.get_json()
+        report = data['data']
+        language = data.get('language', 'en-US')
+
+        try:
+            explanation = self._generate_explanation(report, language)
+            return {'explanation': explanation}, 200
+        except Exception as e:
+            return {'error': str(e)}, 500
+
+    def _generate_explanation(self, report, language):
+        """Convert analytics data to natural language explanation"""
+        subjects = report.get('subject_mapping', {})
+        
+        # Base template with language support
+        templates = {
+            'en-US': {
+                'intro': "Here's your analytics breakdown: ",
+                'subject': "For {subject}, we found {count} main concepts. ",
+                'concept': "The '{concept}' category contains {count} questions. ",
+                'insight': "Most frequent technical term was '{keyword}'. ",
+                'outro': "This analysis processed {total} total questions."
+            },
+            'es-ES': {
+                'intro': "Aquí está su análisis detallado: ",
+                # ... Spanish translations
+            }
+        }
+
+        lang_template = templates.get(language, templates['en-US'])
+        
+        explanation = [lang_template['intro']]
+        
+        # Subject breakdown
+        for subject, data in subjects.items():
+            explanation.append(lang_template['subject'].format(
+                subject=subject.replace('-', ' ').title(),
+                count=len(data.get('concepts', []))
+            ))
+            
+            for concept in data.get('concepts', []):
+                explanation.append(lang_template['concept'].format(
+                    concept=concept['name'],
+                    count=concept['count']
+                ))
+        
+        # Insights section
+        insights = report.get('insights', {})
+        explanation.append(lang_template['insight'].format(
+            keyword=insights.get('most_frequent_keyword', 'N/A')
+        ))
+        
+        explanation.append(lang_template['outro'].format(
+            total=insights.get('total_questions', 0)
+        ))
+
+        return textwrap.fill(' '.join(explanation), width=80)
